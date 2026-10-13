@@ -1,0 +1,10 @@
+import fs from "fs";
+const css = fs.readFileSync("public/reference/air.css", "utf8");
+const i = css.indexOf(".air-surfaces-carousel{");
+console.log(css.slice(i, i + 1800));
+const j = css.indexOf("air-surfaces-carousel__scroll");
+console.log("\n==== scroll", css.slice(j, j + 900));
+const k = css.indexOf("air-surfaces-carousel__slide{");
+console.log("\n==== slide", css.slice(k, k + 800));
+const s = css.indexOf("air-surfaces-carousel__slide_has-snap-point");
+console.log("\n==== snap", css.slice(s, s + 400));

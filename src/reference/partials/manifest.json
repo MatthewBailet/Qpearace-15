@@ -1,0 +1,77 @@
+{
+  "overviewClass": "air-overview",
+  "kids": [
+    {
+      "tag": "HEADER",
+      "id": "wt-site-header",
+      "className": "_root_56qbgi_9 _rrSiteHeader_WK9en _adaptive_56qbgi_17"
+    },
+    {
+      "tag": "DIV",
+      "id": "announce-placeholder",
+      "className": ""
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "className": "air-overview"
+    },
+    {
+      "tag": "FOOTER",
+      "id": "",
+      "className": "_root_1s95ny7_1 _modeFull_1s95ny7_6 _themeDark_1s95ny7_32 jb-footer"
+    }
+  ],
+  "sections": [
+    {
+      "name": "section-00",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-hero-section",
+      "bytes": 13081
+    },
+    {
+      "name": "section-01",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-surfaces-section",
+      "bytes": 38081
+    },
+    {
+      "name": "section-02",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-cloud-agents-section",
+      "bytes": 12437
+    },
+    {
+      "name": "section-03",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-in-ides-section",
+      "bytes": 6187
+    },
+    {
+      "name": "section-04",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-features-section",
+      "bytes": 846101
+    },
+    {
+      "name": "section-05",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-adopt-ai-section",
+      "bytes": 1648479
+    },
+    {
+      "name": "section-06",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-junie-banner-section",
+      "bytes": 1780
+    },
+    {
+      "name": "section-07",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-adopt-ai-section",
+      "bytes": 507430
+    },
+    {
+      "name": "section-08",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-try-section",
+      "bytes": 3989
+    },
+    {
+      "name": "section-09",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-get-section",
+      "bytes": 1002
+    }
+  ]
+}

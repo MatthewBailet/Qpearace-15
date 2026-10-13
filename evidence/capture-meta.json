@@ -1,0 +1,810 @@
+{
+  "url": "https://www.jetbrains.com/air/",
+  "capturedAt": "2026-10-09T18:51:38.401Z",
+  "browser": "Playwright Chromium",
+  "devicePixelRatio": 1,
+  "reducedMotion": "reduce",
+  "consent": "Cookie banner hidden for capture. It is a consent overlay, not Air page content.",
+  "scrollPosition": 0,
+  "locale": "en-US",
+  "title": "JetBrains Air: One system for building software with agents",
+  "lang": "en",
+  "fonts": [
+    {
+      "family": "Air Web Inter",
+      "weight": "100 900",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "JetBrains Modul",
+      "weight": "1 900",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "JetBrains Sans",
+      "weight": "100 900",
+      "style": "normal",
+      "status": "loaded"
+    }
+  ],
+  "sections": [
+    {
+      "i": 0,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-hero-section",
+      "id": "",
+      "heading": "jetbrains air is one system for building software with agents"
+    },
+    {
+      "i": 1,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-surfaces-section",
+      "id": "",
+      "heading": ""
+    },
+    {
+      "i": 2,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-cloud-agents-section",
+      "id": "",
+      "heading": "Switch screens without a second thought"
+    },
+    {
+      "i": 3,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-in-ides-section",
+      "id": "",
+      "heading": "Run any agent and review every change with air in ides"
+    },
+    {
+      "i": 4,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-features-section",
+      "id": "",
+      "heading": "Bring your team and agents together with air teams"
+    },
+    {
+      "i": 5,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-adopt-ai-section",
+      "id": "",
+      "heading": "Adopt AI at scalewith air governance"
+    },
+    {
+      "i": 6,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-junie-banner-section",
+      "id": "",
+      "heading": "Junie is now part of JetBrains Air"
+    },
+    {
+      "i": 7,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-adopt-ai-section",
+      "id": "",
+      "heading": "Give agents full and precise context"
+    },
+    {
+      "i": 8,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-try-section",
+      "id": "try-air",
+      "heading": "Try air today"
+    },
+    {
+      "i": 9,
+      "tag": "section",
+      "className": "_wt-section_tbzztj_24 jb-transparent-section air-get-section",
+      "id": "",
+      "heading": "get some air"
+    }
+  ],
+  "sheets": [
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/root-ErA1rNGF.css",
+      "name": "root-ErA1rNGF.css",
+      "bytes": 787,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/page-BY9qi1qO.css",
+      "name": "page-BY9qi1qO.css",
+      "bytes": 60421,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/use-async-data-DwTsPMzj.css#",
+      "name": "use-async-data-DwTsPMzj.css",
+      "bytes": 30616,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/default-layout-styles-BZQooV-x.css",
+      "name": "default-layout-styles-BZQooV-x.css",
+      "bytes": 315225,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/layout-CY2L2wVC.css",
+      "name": "layout-CY2L2wVC.css",
+      "bytes": 54354,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/use-cart-info-DXqAAfe4.css#",
+      "name": "use-cart-info-DXqAAfe4.css",
+      "bytes": 441,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/CSSTransition-C74qkN5T.css",
+      "name": "CSSTransition-C74qkN5T.css",
+      "bytes": 1974,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/lib-B367F2_o.css",
+      "name": "lib-B367F2_o.css",
+      "bytes": 45020,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/lib-DKGQgrGm.css",
+      "name": "lib-DKGQgrGm.css",
+      "bytes": 30301,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/lib-CD8o8faq.css",
+      "name": "lib-CD8o8faq.css",
+      "bytes": 757,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/lib-D2CHsOnb.css",
+      "name": "lib-D2CHsOnb.css",
+      "bytes": 1191,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/lib-T7HGf-xG.css",
+      "name": "lib-T7HGf-xG.css",
+      "bytes": 18316,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/agents-animation-DSmmwICZ.css",
+      "name": "agents-animation-DSmmwICZ.css",
+      "bytes": 944,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/use-async-data-DwTsPMzj.css",
+      "name": "use-async-data-DwTsPMzj.css",
+      "bytes": 30616,
+      "status": 200
+    },
+    {
+      "href": "https://www.jetbrains.com/_assets/rr/use-cart-info-DXqAAfe4.css",
+      "name": "use-cart-info-DXqAAfe4.css",
+      "bytes": 441,
+      "status": 200
+    }
+  ],
+  "inlineStyleBlocks": 5,
+  "assetsSaved": 93,
+  "assetsFailed": [
+    {
+      "url": "https://www.jetbrains.com/air/&quot;/img/banners-menu-main/bg-air-horizontal.png&quot;",
+      "status": 404
+    },
+    {
+      "url": "https://www.jetbrains.com/air/&quot;/img/banners-menu-main/jb-for-data.svg&quot;",
+      "status": 404
+    },
+    {
+      "url": "https://www.jetbrains.com/air/&quot;/img/banners-menu-main/bg-air.png&quot;",
+      "status": 404
+    },
+    {
+      "url": "https://www.jetbrains.com/air/&quot;/img/banners-menu-main/jb-for-data-horizontal.svg&quot;",
+      "status": 404
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#_R_34j5_",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip0_3130_90334",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip0_501_20189",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#__lottie_element_2",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#d",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#b",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip0_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#a",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#c",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip1_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip3_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip2_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip4_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip5_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip2_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip6_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip0_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip7_3060_245803",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip1_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#path-4-inside-1_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip0_3060_245807",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip4_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#mask0_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip3_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip9_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#paint0_linear_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip5_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip6_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip7_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip10_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip8_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#pattern0_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip11_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip17_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip13_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip16_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip12_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip14_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip15_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip19_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#pattern1_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip25_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip21_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip20_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip18_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip26_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip22_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip24_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#pattern2_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip23_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip27_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip29_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip34_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip28_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#pattern4_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#pattern3_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip35_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip33_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip31_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip30_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip32_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip37_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip39_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip40_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip38_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip44_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip45_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip46_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip36_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip48_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip41_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip49_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip50_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip42_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip43_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip52_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip47_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip55_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip54_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip59_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip51_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip60_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip53_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip61_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip58_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip62_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip56_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip57_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#paint0_linear_3060_255514",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip2_3060_255514",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#mask0_3060_255514",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#pattern0_3074_84025",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip1_3060_255514",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip0_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip63_3060_250268",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip1_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip0_3060_255514",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip2_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip3_3060_255514",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip4_3060_255514",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip3_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip6_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip8_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip5_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip13_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip11_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip4_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip12_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip10_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip14_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip7_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip9_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#path-37-inside-2_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#path-33-inside-1_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#path-46-inside-4_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#path-54-inside-6_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip20_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip19_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#path-42-inside-3_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip17_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#path-50-inside-5_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip22_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip24_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip18_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip16_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip21_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip15_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip23_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip26_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip27_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip32_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip33_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip30_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip34_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip35_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip36_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip25_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip38_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip28_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip31_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip29_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip40_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip37_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip39_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip42_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip41_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip44_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    },
+    {
+      "url": "https://www.jetbrains.com/air/#clip43_2350_62031",
+      "error": "Error: EISDIR: illegal operation on a directory, open 'C:\\Users\\matth\\OneDrive\\Desktop\\Dev\\Qpearance-15\\public\\air'"
+    }
+  ],
+  "externalSkipped": [],
+  "label": "Directly extracted from the live rendered page and its stylesheets."
+}

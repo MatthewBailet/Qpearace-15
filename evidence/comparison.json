@@ -1,0 +1,128 @@
+[
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "referenceSize": {
+      "w": 390,
+      "h": 14046
+    },
+    "localSize": {
+      "w": 390,
+      "h": 14046
+    },
+    "compared": {
+      "w": 390,
+      "h": 14046
+    },
+    "mismatched": 411763,
+    "mismatchRatio": 7.517,
+    "geometry": []
+  },
+  {
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "referenceSize": {
+      "w": 768,
+      "h": 12681
+    },
+    "localSize": {
+      "w": 768,
+      "h": 12681
+    },
+    "compared": {
+      "w": 768,
+      "h": 12681
+    },
+    "mismatched": 1682,
+    "mismatchRatio": 0.017,
+    "geometry": []
+  },
+  {
+    "viewport": {
+      "width": 1024,
+      "height": 768
+    },
+    "referenceSize": {
+      "w": 1024,
+      "h": 12063
+    },
+    "localSize": {
+      "w": 1024,
+      "h": 12063
+    },
+    "compared": {
+      "w": 1024,
+      "h": 12063
+    },
+    "mismatched": 2493,
+    "mismatchRatio": 0.02,
+    "geometry": []
+  },
+  {
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "referenceSize": {
+      "w": 1280,
+      "h": 11746
+    },
+    "localSize": {
+      "w": 1280,
+      "h": 11746
+    },
+    "compared": {
+      "w": 1280,
+      "h": 11746
+    },
+    "mismatched": 2780,
+    "mismatchRatio": 0.018,
+    "geometry": []
+  },
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "referenceSize": {
+      "w": 1440,
+      "h": 11794
+    },
+    "localSize": {
+      "w": 1440,
+      "h": 11794
+    },
+    "compared": {
+      "w": 1440,
+      "h": 11794
+    },
+    "mismatched": 2019,
+    "mismatchRatio": 0.012,
+    "geometry": []
+  },
+  {
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "referenceSize": {
+      "w": 1920,
+      "h": 11794
+    },
+    "localSize": {
+      "w": 1920,
+      "h": 11794
+    },
+    "compared": {
+      "w": 1920,
+      "h": 11794
+    },
+    "mismatched": 2626,
+    "mismatchRatio": 0.012,
+    "geometry": []
+  }
+]
