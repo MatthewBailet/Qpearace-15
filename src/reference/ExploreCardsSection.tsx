@@ -69,6 +69,11 @@ export function ExploreCardsSection() {
   return (
     <section className="_wt-section_tbzztj_24 jb-transparent-section qp-explore-cards-section">
       <div className="_wt-container_tbzztj_1">
+        <header className="qp-explore-cards-heading">
+          <h2 className="_rs-text-1_dz36gk_1 _rs-text_hardness_hard_dz36gk_1 air-section-title qp-explore-cards-title">
+            Ways to use Qpearance
+          </h2>
+        </header>
         <div
           className="_wt-row_mag83e_16 _wt-row_row-gap-size_0_mag83e_1 _wt-row_justify-content_center_mag83e_1 _wt-row_align-items_stretch_mag83e_1 qp-explore-cards-track"
           style={{ ["--wt-horizontal-layout-gutter-default" as string]: "16px" }}
