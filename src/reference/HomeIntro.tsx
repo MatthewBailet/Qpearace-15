@@ -18,6 +18,7 @@ function RotatingWord({ interval = 4800 }: { interval?: number }) {
   const [phase, setPhase] = useState<"in" | "out" | "from">("in");
   const [width, setWidth] = useState<number>();
   const indexRef = useRef(0);
+  const skipRef = useRef<() => void>(() => {});
   const sizerRef = useRef<HTMLSpanElement>(null);
   const nextSizerRef = useRef<HTMLSpanElement>(null);
   const word = WORDS[index] ?? "";
@@ -34,45 +35,85 @@ function RotatingWord({ interval = 4800 }: { interval?: number }) {
     indexRef.current = index;
   }, [index]);
 
-  function showWord(nextIndex: number, instant: boolean) {
-    indexRef.current = nextIndex;
-    setIndex(nextIndex);
-    if (instant || reducedMotion()) {
-      setPhase("in");
-      return;
-    }
-    setPhase("from");
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setPhase("in"));
-    });
-  }
-
   useEffect(() => {
     let cancelled = false;
     let dwellTimer = 0;
     let exitTimer = 0;
+    let rafFrom = 0;
+    let rafIn = 0;
 
-    dwellTimer = window.setTimeout(() => {
-      if (cancelled) return;
-      if (document.hidden) return;
+    function clearTimers() {
+      window.clearTimeout(dwellTimer);
+      window.clearTimeout(exitTimer);
+      window.cancelAnimationFrame(rafFrom);
+      window.cancelAnimationFrame(rafIn);
+    }
+
+    function enter(nextIndex: number) {
+      indexRef.current = nextIndex;
+      setIndex(nextIndex);
       if (reducedMotion()) {
-        showWord((indexRef.current + 1) % WORDS.length, true);
+        setPhase("in");
+        arm();
         return;
       }
-      const current = WORDS[indexRef.current] ?? "";
-      setPhase("out");
-      exitTimer = window.setTimeout(() => {
+      setPhase("from");
+      rafFrom = window.requestAnimationFrame(() => {
+        rafIn = window.requestAnimationFrame(() => {
+          if (cancelled) return;
+          setPhase("in");
+          arm();
+        });
+      });
+    }
+
+    function arm() {
+      window.clearTimeout(dwellTimer);
+      dwellTimer = window.setTimeout(() => {
         if (cancelled) return;
-        showWord((indexRef.current + 1) % WORDS.length, false);
-      }, 300 + LETTER_STAGGER_MS * Math.max(0, current.length - 1));
-    }, interval);
+        if (document.hidden) {
+          arm();
+          return;
+        }
+        if (reducedMotion()) {
+          enter((indexRef.current + 1) % WORDS.length);
+          return;
+        }
+        const current = WORDS[indexRef.current] ?? "";
+        setPhase("out");
+        exitTimer = window.setTimeout(() => {
+          if (cancelled) return;
+          enter((indexRef.current + 1) % WORDS.length);
+        }, 300 + LETTER_STAGGER_MS * Math.max(0, current.length - 1));
+      }, interval);
+    }
+
+    skipRef.current = () => {
+      if (cancelled) return;
+      clearTimers();
+      enter((indexRef.current + 1) % WORDS.length);
+    };
+
+    function onVisibility() {
+      if (cancelled) return;
+      if (document.hidden) {
+        clearTimers();
+        setPhase("in");
+        return;
+      }
+      arm();
+    }
+
+    document.addEventListener("visibilitychange", onVisibility);
+    arm();
 
     return () => {
       cancelled = true;
-      window.clearTimeout(dwellTimer);
-      window.clearTimeout(exitTimer);
+      skipRef.current = () => {};
+      clearTimers();
+      document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [interval, index]);
+  }, [interval]);
 
   return (
     <button
@@ -81,7 +122,7 @@ function RotatingWord({ interval = 4800 }: { interval?: number }) {
       data-phase={phase}
       aria-label={`Change word, currently ${word}`}
       style={{ "--qp-rw-width": width ? `${width}px` : undefined } as CSSProperties}
-      onClick={() => showWord((indexRef.current + 1) % WORDS.length, false)}
+      onClick={() => skipRef.current()}
     >
       <span className="qp-sr-only">{word}</span>
       <span ref={sizerRef} className="qp-rotating-word__sizer" aria-hidden>
@@ -111,8 +152,12 @@ export function HomeIntro() {
         <div className="_wt-row_mag83e_16 _wt-row_row-gap-size_0_mag83e_1 _wt-row_column-gap-size_m_mag83e_16 _wt-row_justify-content_space-between_mag83e_1 _wt-row_align-items_flex-end_mag83e_1">
           <div className="_wt-col_mag83e_1 _wt-col-6_mag83e_1 _wt-col-lg-7_mag83e_1 _wt-col-lg_mag83e_1 _wt-col-md-12_mag83e_1 _wt-col-md_mag83e_1">
             <h1 className="_rs-text-1_dz36gk_1 _rs-text_hardness_hard_dz36gk_1 air-section-title qp-home-intro__title">
-              Build custom data feeds <br />
-              for your <RotatingWord />
+              <span className="qp-home-intro__chunk qp-home-intro__chunk--custom">Build custom</span>{" "}
+              <span className="qp-home-intro__chunk qp-home-intro__chunk--feeds">data feeds</span>
+              <br className="qp-home-intro__br-desktop" aria-hidden="true" />
+              <span className="qp-home-intro__tail">
+                for your <RotatingWord />
+              </span>
             </h1>
           </div>
           <div className="_wt-col_mag83e_1 _wt-col-5_mag83e_1 _wt-col-lg-5_mag83e_1 _wt-col-lg_mag83e_1 _wt-col-md-12_mag83e_1 _wt-col-md_mag83e_1 jb-offset-top-md-24">

@@ -1,7 +1,5 @@
 import header from "./partials/header.html?raw";
-import announce from "./partials/announce.html?raw";
 import footer from "./partials/footer.html?raw";
-import homeHero from "./partials/home-hero.html?raw";
 import surfaces from "./partials/section-01.html?raw";
 import cloud from "./partials/section-02.html?raw";
 import ides from "./partials/section-03.html?raw";
@@ -13,6 +11,8 @@ import context from "./partials/section-07.html?raw";
 import access from "./partials/section-08.html?raw";
 import closing from "./partials/section-09.html?raw";
 import { ExploreCardsSection } from "./ExploreCardsSection";
+import { StoriesSection } from "./StoriesSection";
+import { HeroBanner } from "./HeroBanner";
 import { HomeIntro } from "./HomeIntro";
 import "./slots.css";
 
@@ -24,12 +24,8 @@ export function SiteHeader() {
   return <Slot html={header} />;
 }
 
-export function AnnounceBar() {
-  return <Slot html={announce} />;
-}
-
 export function HomeHeroSection() {
-  return <Slot html={homeHero} />;
+  return <HeroBanner />;
 }
 
 export function TeamsCardsSection() {
@@ -80,7 +76,6 @@ export function AirPage() {
   return (
     <div className="page-color-default-purple">
       <SiteHeader />
-      <AnnounceBar />
       <div className="air-overview">
         <svg className="qp-page-arcs" viewBox="0 0 2096 1200" fill="none" aria-hidden="true">
           <circle cx="1980" cy="340" r="560" stroke="#DDDAD0" />
@@ -88,8 +83,9 @@ export function AirPage() {
         </svg>
         <HomeIntro />
         <HomeHeroSection />
-        <TeamsCardsSection />
+        <StoriesSection />
         <ExploreCardsSection />
+        <TeamsCardsSection />
         <SurfacesSection />
         <JunieSection />
         <CloudSection />
