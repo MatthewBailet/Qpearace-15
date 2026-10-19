@@ -42,6 +42,10 @@
   --qp-bg: #eeede9;
   --qp-text: #19191c;
   --qp-header: #19191c;
+  --qp-button: #26241f;
+  --qp-button-hover: #34312c;
+  --qp-button-active: #1c1b17;
+  --qp-button-label: #faf9f5;
   --qp-primary: #6b57ff;
   --qp-card-border: #dddbcf;
   --qp-card-fill: #e6e4db;
@@ -55,8 +59,29 @@
   --qp-offset: 24px;
   --qp-header-height: 72px;
   --qp-radius: 8px;
+  --qp-radius-button: 12px;
+  --rs-button-border-radius: var(--qp-radius-button);
+  --rs-button-s-border-radius: var(--qp-radius-button);
+  --rs-button-m-border-radius: var(--qp-radius-button);
+  --rs-button-l-border-radius: var(--qp-radius-button);
+  --qp-space: 8px;
+  --qp-space-1: 8px;
+  --qp-space-2: 16px;
+  --qp-space-3: 24px;
+  --qp-space-4: 32px;
+  --qp-space-5: 40px;
+  --qp-space-6: 48px;
+  --qp-space-7: 56px;
+  --qp-space-8: 64px;
+  --qp-space-9: 72px;
+  --qp-space-10: 80px;
+  --qp-space-12: 96px;
+  --qp-space-14: 112px;
+  --qp-space-16: 128px;
+  --qp-gutter: 24px;
   --qp-gutter-m: 32px;
   --qp-gutter-s: 16px;
+  --qp-inset: 22px;
   color: var(--qp-text);
   background: var(--qp-bg);
   font-family: var(--qp-font);
@@ -65,15 +90,29 @@
   font-weight: 400;
 }
 
-@media screen and (width <= 640px) {
+@media screen and (width <= 1540px) {
   :root {
-    --qp-offset: 16px;
+    --qp-inset: 40px;
+  }
+}
+
+@media screen and (width <= 1276px) {
+  :root {
+    --qp-inset: 32px;
   }
 }
 
 @media screen and (width <= 1000px) {
   :root {
+    --qp-inset: 22px;
     --qp-header-height: 48px;
+  }
+}
+
+@media screen and (width <= 640px) {
+  :root {
+    --qp-offset: 16px;
+    --qp-inset: 16px;
   }
 }
 
@@ -114,7 +153,7 @@ a {
   width: 100%;
   max-width: 1276px;
   margin-inline: auto;
-  padding-inline: 22px;
+  padding-inline: var(--qp-inset);
 }
 
 @media screen and (width <= 1276px) {
@@ -129,15 +168,9 @@ a {
   }
 }
 
-@media screen and (width <= 640px) {
-  .qp-container {
-    padding-inline: 16px;
-  }
-}
-
-.qp-offset-8 { margin-top: 8px; }
-.qp-offset-24 { margin-top: 24px; }
-.qp-offset-64 { margin-top: 64px; }
+.qp-offset-8 { margin-top: var(--qp-space-1); }
+.qp-offset-24 { margin-top: var(--qp-gutter); }
+.qp-offset-64 { margin-top: var(--qp-space-8); }
 
 @media screen and (width <= 640px) {
   .qp-offset-sm-48 { margin-top: 48px; }
@@ -213,11 +246,15 @@ a {
   justify-content: center;
   gap: 8px;
   border: 0;
+  border-radius: var(--qp-radius-button);
+  corner-shape: squircle;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
   font-family: var(--qp-font);
-  font-weight: 400;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: background-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
 }
 
 .qp-button:focus-visible {
@@ -226,28 +263,30 @@ a {
 }
 
 .qp-button--m {
-  padding: 8px 24px;
-  border-radius: 20px;
+  min-height: 40px;
+  padding: 8px 20px;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: 0.0015em;
 }
 
 .qp-button--s {
-  padding: 6px 16px;
-  border-radius: 16px;
+  min-height: 32px;
+  padding: 6px 14px;
   font-size: 13px;
   line-height: 20px;
-  letter-spacing: 0.0045em;
 }
 
 .qp-button--rock {
-  background: #19191c;
-  color: #fff;
+  background: var(--qp-button);
+  color: var(--qp-button-label);
 }
 
 .qp-button--rock:hover {
-  background: rgb(25 25 28 / 80%);
+  background: var(--qp-button-hover);
+}
+
+.qp-button--rock:active {
+  background: var(--qp-button-active);
 }
 
 .qp-button--outline {
@@ -257,7 +296,12 @@ a {
 }
 
 .qp-button--outline:hover {
-  background: rgb(25 25 28 / 10%);
+  background: rgb(25 25 28 / 8%);
+}
+
+.qp-button--outline:active,
+.qp-button--clear:active {
+  background: rgb(25 25 28 / 14%);
 }
 
 .qp-button--clear {
@@ -266,7 +310,7 @@ a {
 }
 
 .qp-button--clear:hover {
-  background: rgb(25 25 28 / 10%);
+  background: rgb(25 25 28 / 8%);
 }
 
 .qp-button--on-dark.qp-button--rock {
@@ -445,16 +489,20 @@ a {
 }
 
 .qp-segment {
+  min-height: 40px;
   padding: 8px 16px;
   border: 0;
-  border-radius: 20px;
+  border-radius: var(--qp-radius-button);
+  corner-shape: squircle;
   background: transparent;
   color: #19191c;
   box-shadow: inset 0 0 0 1px rgb(25 25 28 / 28%);
   cursor: pointer;
   font-size: 16px;
+  font-weight: 500;
   line-height: 24px;
-  letter-spacing: 0.0015em;
+  letter-spacing: -0.01em;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
 }
 
 .qp-segment[aria-checked="true"] {

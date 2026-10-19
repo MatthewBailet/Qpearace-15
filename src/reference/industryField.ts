@@ -12,7 +12,7 @@ export const INDUSTRIES = [
   "Travel",
   "Infrastructure",
   "Automotive",
-  "Telecommunications",
+  "Communications",
   "Insurance",
   "Healthcare",
 ] as const;
@@ -20,13 +20,20 @@ export const INDUSTRIES = [
 export const INDUSTRY_HOLD = 4.5;
 export const INDUSTRY_BLEND = 0.38;
 
+export function industryBlendDuration(from: string, to: string) {
+  if (from === "Finance" || to === "Finance") return 0.95;
+  return INDUSTRY_BLEND;
+}
+
 export function fieldLayout(width: number, height: number) {
-  const gap = width < 760 ? 20 : 56;
-  const room = width < 760 ? 168 : 0;
-  const preferred = Math.min(width, height) * 0.4;
-  if (room === 0) return { radius: preferred, gap };
-  const capped = (width - 16 - gap - room) / 2;
-  return { radius: Math.max(68, Math.min(preferred, capped)), gap };
+  const compact = width < 640;
+  const radius = Math.min(width, height) * (compact ? 0.36 : 0.4);
+  return {
+    radius,
+    gap: compact ? 16 : 40,
+    originX: width / 2,
+    originY: height / 2,
+  };
 }
 
 export const NEUTRAL = { r: 184, g: 181, b: 174 };
@@ -54,6 +61,7 @@ type Pattern = {
   support: RGB;
   accent?: RGB;
   frozen: number;
+  kind?: "finance";
   evaluate: (nx: number, ny: number, time: number) => Contribution;
 };
 
@@ -131,42 +139,6 @@ function polarLattice() {
 }
 
 const LATTICE = polarLattice();
-
-function snapChain(points: Array<[number, number]>, count: number): Sample[] {
-  const samples = resample(points, count);
-  const used = new Set<number>();
-  const chain: Sample[] = [];
-  let current = -1;
-  for (const sample of samples) {
-    let best = -1;
-    let bestD = Infinity;
-    for (let i = 0; i < LATTICE.length; i += 1) {
-      if (used.has(i)) continue;
-      const dot = LATTICE[i];
-      if (current >= 0) {
-        const step = Math.hypot(dot.x - LATTICE[current].x, dot.y - LATTICE[current].y);
-        if (step > 0.18) continue;
-      }
-      const d = (dot.x - sample.x) ** 2 + (dot.y - sample.y) ** 2;
-      if (d < bestD) {
-        bestD = d;
-        best = i;
-      }
-    }
-    if (best < 0) continue;
-    if (current >= 0 && best === current) continue;
-    used.add(best);
-    current = best;
-    chain.push({ x: LATTICE[best].x, y: LATTICE[best].y, s: sample.s });
-  }
-  return chain;
-}
-
-function chainHit(chain: Sample[], nx: number, ny: number, width: number) {
-  if (!chain.length) return { dist: 1, s: 0, x: 0, y: 0, emphasis: 0 };
-  const hit = nearest(chain, nx, ny);
-  return { ...hit, emphasis: Math.exp(-((hit.dist / width) ** 2)) };
-}
 
 function nearest(samples: Sample[], x: number, y: number) {
   let best = Infinity;
@@ -273,49 +245,169 @@ function manufacturing(nx: number, ny: number, time: number): Contribution {
   return { emphasis: active, support: 0, hub: 0 };
 }
 
-const FINANCE_GREEN = snapChain(
-  [
-    [-0.5, 0.22],
-    [-0.28, 0.1],
-    [-0.06, -0.02],
-    [0.16, -0.16],
-    [0.34, -0.28],
-    [0.5, -0.4],
-  ],
-  28,
-);
+const FINANCE_TICK = 0.28;
+const FINANCE_X0 = -0.98;
+const FINANCE_X1 = 0.76;
+const FINANCE_DARK = { r: 86, g: 83, b: 78 };
+const FINANCE_MEDIUM = 1.85;
+const FINANCE_SMALL = 0.72;
 
-const FINANCE_RED = snapChain(
-  [
-    [-0.48, 0.34],
-    [-0.26, 0.26],
-    [-0.04, 0.2],
-    [0.18, 0.16],
-    [0.36, 0.2],
-    [0.5, 0.28],
-  ],
-  26,
-);
+const FINANCE_COLUMNS = (() => {
+  const bins = new Map<number, Array<{ x: number; y: number }>>();
+  for (const dot of LATTICE) {
+    if (dot.x < FINANCE_X0 || dot.x > FINANCE_X1) continue;
+    if (dot.x * dot.x + dot.y * dot.y > 1.02) continue;
+    const key = Math.round(dot.x / 0.1);
+    const list = bins.get(key);
+    if (list) list.push(dot);
+    else bins.set(key, [dot]);
+  }
+  return [...bins.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([, dots]) => dots);
+})();
 
-let financePeakAt = -1;
-let financePeak: Sample[] = [];
+const financePrices: number[] = [];
+let financeChainAt = -1;
+let financeChain: Array<Sample & { up: number }> = [];
+
+function financeHash(step: number) {
+  let x = Math.imul(step ^ 0x9e3779b9, 0x85ebca6b);
+  x = Math.imul(x ^ (x >>> 13), 0xc2b2ae35);
+  return (x ^ (x >>> 16)) >>> 0;
+}
+
+function ensureFinancePrices(step: number) {
+  const needed = Math.max(0, step);
+  const historicEnd = Math.max(1, FINANCE_COLUMNS.length - 1);
+  while (financePrices.length <= needed) {
+    const i = financePrices.length;
+    const prev = i === 0 ? 0.42 : financePrices[i - 1];
+    const prev2 = i < 2 ? prev : financePrices[i - 2];
+    const h = financeHash(i + 1);
+    const roll = (h & 1023) / 1023;
+    const mag = ((h >>> 10) & 255) / 255;
+    const mom = prev - prev2;
+    const live = i >= historicEnd;
+    let delta = mom * (live ? 0.62 : 0.78) + (mag - 0.5) * (live ? 0.07 : 0.018);
+    if (roll > (live ? 0.84 : 0.93)) {
+      delta = (0.05 + mag * (live ? 0.06 : 0.03)) * (h & 1 ? 1 : -1);
+    } else if (roll < (live ? 0.08 : 0.12)) {
+      delta = (mag - 0.5) * (live ? 0.02 : 0.008);
+    }
+    const target = 0.4 + Math.min(0.18, i * 0.0008);
+    let next = prev + delta + (target - prev) * (live ? 0.004 : 0.012);
+    if (next > 0.86) next = 0.86 - (next - 0.86) * 0.35;
+    if (next < 0.16) next = 0.16 + (0.16 - next) * 0.35;
+    financePrices.push(clamp01(next));
+  }
+}
+
+function liveFinancePrice(time: number) {
+  const historicEnd = Math.max(1, FINANCE_COLUMNS.length - 1);
+  const liveT = Math.max(0, time / FINANCE_TICK);
+  const i0 = Math.floor(liveT);
+  const frac = smooth(liveT - i0);
+  ensureFinancePrices(historicEnd + i0 + 1);
+  const a = financePrices[historicEnd + i0] ?? 0.42;
+  const b = financePrices[historicEnd + i0 + 1] ?? a;
+  return a + (b - a) * frac;
+}
+
+function pickColumnDot(column: Array<{ x: number; y: number }>, targetY: number) {
+  let best = column[0];
+  let bestD = Infinity;
+  for (const dot of column) {
+    const d = Math.abs(dot.y - targetY);
+    if (d < bestD) {
+      bestD = d;
+      best = dot;
+    }
+  }
+  return best;
+}
+
+function nearestLattice(x: number, y: number) {
+  let best = LATTICE[0];
+  let bestD = Infinity;
+  for (const dot of LATTICE) {
+    const d = (dot.x - x) ** 2 + (dot.y - y) ** 2;
+    if (d < bestD) {
+      bestD = d;
+      best = dot;
+    }
+  }
+  return best;
+}
+
+function stitchSegment(from: { x: number; y: number }, to: { x: number; y: number }, up: number, s: number) {
+  const span = Math.hypot(to.x - from.x, to.y - from.y);
+  const steps = Math.max(1, Math.round(span / 0.1));
+  const points: Array<Sample & { up: number }> = [];
+  let last = "";
+  for (let i = 1; i <= steps; i += 1) {
+    const t = i / steps;
+    const snapped = nearestLattice(from.x + (to.x - from.x) * t, from.y + (to.y - from.y) * t);
+    const key = `${snapped.x.toFixed(3)}:${snapped.y.toFixed(3)}`;
+    if (key === last) continue;
+    last = key;
+    points.push({ x: snapped.x, y: snapped.y, s, up });
+  }
+  return points;
+}
+
+function buildFinanceChain(tip: number) {
+  const count = FINANCE_COLUMNS.length;
+  if (count < 2) return [];
+  ensureFinancePrices(count - 1);
+  const keys: Array<{ x: number; y: number; up: number; s: number }> = [];
+  for (let i = 0; i < count; i += 1) {
+    const price = i === count - 1 ? tip : (financePrices[i] ?? 0.42);
+    const prev = i === 0 ? price : i === count - 1 ? (financePrices[count - 2] ?? price) : (financePrices[i - 1] ?? price);
+    const targetY = 0.5 - price * 1.0;
+    const dot = pickColumnDot(FINANCE_COLUMNS[i], targetY);
+    keys.push({
+      x: dot.x,
+      y: dot.y,
+      s: i / (count - 1),
+      up: price >= prev ? 1 : 0,
+    });
+  }
+  const chain: Array<Sample & { up: number }> = [];
+  const seen = new Set<string>();
+  for (let i = 0; i < keys.length; i += 1) {
+    const segment =
+      i === 0 ? [{ ...keys[0] }] : stitchSegment(keys[i - 1], keys[i], keys[i].up, keys[i].s);
+    for (const point of segment) {
+      const key = `${point.x.toFixed(3)}:${point.y.toFixed(3)}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      chain.push(point);
+    }
+  }
+  return chain;
+}
 
 function finance(nx: number, ny: number, time: number): Contribution {
-  const green = chainHit(FINANCE_GREEN, nx, ny, 0.038);
-  const red = chainHit(FINANCE_RED, nx, ny, 0.038);
-  const peakIndex = Math.round(clamp01(0.55 + 0.38 * Math.sin(time * 0.55)) * (FINANCE_GREEN.length - 1));
-  if (financePeakAt !== peakIndex) {
-    financePeakAt = peakIndex;
-    financePeak = FINANCE_GREEN.slice(Math.max(0, peakIndex - 1), Math.min(FINANCE_GREEN.length, peakIndex + 3));
+  const tip = liveFinancePrice(time);
+  const stamp = Math.round(tip * 480);
+  if (stamp !== financeChainAt) {
+    financeChainAt = stamp;
+    financeChain = buildFinanceChain(tip);
   }
-  const orange = chainHit(financePeak, nx, ny, 0.04);
-  let best: Contribution = { emphasis: green.emphasis * 0.92, support: 0, hub: 0 };
-  best = prefer(best, { emphasis: red.emphasis * 0.9, support: 1, hub: 0 });
-  return prefer(best, {
-    emphasis: orange.emphasis,
-    support: 2,
-    hub: orange.emphasis > 0.78 ? 0.7 : 0,
-  });
+  if (!financeChain.length) return NONE;
+  let bestD = 1;
+  let up = 1;
+  for (const point of financeChain) {
+    const d = (point.x - nx) ** 2 + (point.y - ny) ** 2;
+    if (d < bestD) {
+      bestD = d;
+      up = point.up;
+    }
+  }
+  const dist = Math.sqrt(bestD);
+  if (dist > 0.045) return NONE;
+  return { emphasis: dist < 0.02 ? 1 : 0.85, support: up ? 0 : 1, hub: 0 };
 }
 
 const ENERGY_BRANCHES = [
@@ -585,10 +677,10 @@ const PATTERNS: Record<string, Pattern> = {
   Logistics: { principal: hex("#397C80"), support: hex("#668CA5"), frozen: 1.4, evaluate: logistics },
   Manufacturing: { principal: hex("#597B96"), support: hex("#A58A60"), frozen: 0.7, evaluate: manufacturing },
   Finance: {
-    principal: hex("#5B8C62"),
-    support: hex("#B0584C"),
-    accent: hex("#C67F38"),
-    frozen: 1.8,
+    principal: hex("#3F8F5B"),
+    support: hex("#C45B4D"),
+    frozen: 2.4,
+    kind: "finance",
     evaluate: finance,
   },
   Energy: { principal: hex("#B18A39"), support: hex("#B96E46"), frozen: 2.4, evaluate: energy },
@@ -599,7 +691,7 @@ const PATTERNS: Record<string, Pattern> = {
   Travel: { principal: hex("#4F8D9E"), support: hex("#B59C70"), frozen: 3.2, evaluate: travel },
   Infrastructure: { principal: hex("#657E8D"), support: hex("#A58D68"), frozen: 2.1, evaluate: infrastructure },
   Automotive: { principal: hex("#497D86"), support: hex("#B07857"), frozen: 1.1, evaluate: automotive },
-  Telecommunications: { principal: hex("#7978AA"), support: hex("#6191A8"), frozen: 1.8, evaluate: telecommunications },
+  Communications: { principal: hex("#7978AA"), support: hex("#6191A8"), frozen: 1.8, evaluate: telecommunications },
   Insurance: { principal: hex("#729488"), support: hex("#73869C"), frozen: 0.85, evaluate: insurance },
   Healthcare: { principal: hex("#568F88"), support: hex("#A78396"), frozen: 4.2, evaluate: healthcare },
   Transportation: { principal: hex("#5E7380"), support: hex("#A48462"), frozen: 1.5, evaluate: transportation },
@@ -627,6 +719,31 @@ function writeWeighted(
 ) {
   const signal = pattern.evaluate(nx, ny, time);
   const emphasis = clamp01(signal.emphasis * weight);
+  if (pattern.kind === "finance") {
+    const presence = clamp01(weight);
+    const base = structural ? STRUCTURE : NEUTRAL;
+    const onLine = signal.emphasis > 0.4;
+    if (!onLine) {
+      const color = mix(base, FINANCE_DARK, presence);
+      out.r = color.r;
+      out.g = color.g;
+      out.b = color.b;
+      out.scale = 1 + (FINANCE_SMALL - 1) * presence;
+      out.alpha = (structural ? 0.94 : 0.88) + 0.04 * presence;
+      out.emphasis = 0.06 * presence;
+      return;
+    }
+    const line = clamp01(signal.emphasis * presence);
+    const accent = signal.support > 0.5 ? pattern.support : pattern.principal;
+    const color = mix(base, accent, line);
+    out.r = color.r;
+    out.g = color.g;
+    out.b = color.b;
+    out.scale = 1 + (FINANCE_MEDIUM - 1) * line;
+    out.alpha = 0.88 + 0.1 * line;
+    out.emphasis = line;
+    return;
+  }
   const hub = clamp01(signal.hub * weight);
   const accent =
     signal.support > 1.5
@@ -693,12 +810,19 @@ export function composeDot(
   }
   const toTime = reduced ? target.frozen : time;
   writeWeighted(target, nx, ny, toTime, weights.inW, structural, lookB);
+  const financeBlend = source.kind === "finance" || target.kind === "finance";
   const sum = lookA.emphasis + lookB.emphasis;
-  const mixTo = sum < 1e-4 ? 0 : lookB.emphasis / sum;
+  const mixTo = financeBlend
+    ? weights.inW / Math.max(1e-4, weights.outW + weights.inW)
+    : sum < 1e-4
+      ? 0
+      : lookB.emphasis / sum;
   out.r = lookA.r + (lookB.r - lookA.r) * mixTo;
   out.g = lookA.g + (lookB.g - lookA.g) * mixTo;
   out.b = lookA.b + (lookB.b - lookA.b) * mixTo;
-  out.scale = Math.min(2.2, 1 + (lookA.scale - 1) + (lookB.scale - 1));
-  out.alpha = Math.min(1, Math.max(lookA.alpha, lookB.alpha));
+  out.scale = financeBlend
+    ? lookA.scale + (lookB.scale - lookA.scale) * mixTo
+    : Math.min(2.2, 1 + (lookA.scale - 1) + (lookB.scale - 1));
+  out.alpha = Math.min(1, lookA.alpha + (lookB.alpha - lookA.alpha) * mixTo);
   out.emphasis = Math.min(1, sum);
 }

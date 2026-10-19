@@ -10,9 +10,10 @@ import junie from "./partials/section-06.html?raw";
 import context from "./partials/section-07.html?raw";
 import access from "./partials/section-08.html?raw";
 import closing from "./partials/section-09.html?raw";
+import { useState } from "react";
 import { ExploreCardsSection } from "./ExploreCardsSection";
 import { StoriesSection } from "./StoriesSection";
-import { HeroBanner } from "./HeroBanner";
+import { HeroBanner, HomeOffer } from "./HeroBanner";
 import { HomeIntro } from "./HomeIntro";
 import "./slots.css";
 
@@ -72,9 +73,49 @@ export function SiteFooter() {
   return <Slot html={footer} />;
 }
 
+function NoticeBar() {
+  const [phase, setPhase] = useState<"in" | "out" | "gone">(() =>
+    sessionStorage.getItem("qp-notice") === "closed" ? "gone" : "in",
+  );
+  if (phase === "gone") return null;
+
+  return (
+    <div
+      className={`qp-notice${phase === "out" ? " is-out" : ""}`}
+      role="region"
+      aria-label="Announcement"
+      onAnimationEnd={(event) => {
+        if (event.animationName === "qp-notice-out") setPhase("gone");
+      }}
+    >
+      <div className="qp-notice__inner">
+        <p className="qp-notice__text">
+          We’ve updated our ethical data sourcing commitments for 2027.{" "}
+          <a href="#sourcing">Read the update</a>
+        </p>
+        <button
+          className="qp-notice__close"
+          type="button"
+          aria-label="Dismiss announcement"
+          onClick={() => {
+            sessionStorage.setItem("qp-notice", "closed");
+            setPhase("out");
+          }}
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M4.2 4.2 11.8 11.8M11.8 4.2 4.2 11.8" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export function AirPage() {
   return (
     <div className="page-color-default-purple">
+      <NoticeBar />
+      <div className="qp-page-shell">
       <SiteHeader />
       <div className="air-overview">
         <svg className="qp-page-arcs" viewBox="0 0 2096 1200" fill="none" aria-hidden="true">
@@ -84,6 +125,7 @@ export function AirPage() {
         <HomeIntro />
         <HomeHeroSection />
         <StoriesSection />
+        <HomeOffer />
         <ExploreCardsSection />
         <TeamsCardsSection />
         <SurfacesSection />
@@ -97,6 +139,7 @@ export function AirPage() {
         <ClosingSection />
       </div>
       <SiteFooter />
+      </div>
     </div>
   );
 }

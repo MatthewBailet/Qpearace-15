@@ -71,7 +71,7 @@ export function ExploreCardsSection() {
       <div className="_wt-container_tbzztj_1">
         <div
           className="_wt-row_mag83e_16 _wt-row_row-gap-size_0_mag83e_1 _wt-row_justify-content_center_mag83e_1 _wt-row_align-items_stretch_mag83e_1 qp-explore-cards-track"
-          style={{ ["--wt-horizontal-layout-gutter-default" as string]: "16px" }}
+          style={{ ["--wt-horizontal-layout-gutter-default" as string]: "var(--qp-gutter-s)" }}
         >
           {CARDS.map((card) => (
             <FeatureTextCard key={card.title} {...card} />

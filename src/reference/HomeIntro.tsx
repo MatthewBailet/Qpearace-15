@@ -149,8 +149,8 @@ export function HomeIntro() {
   return (
     <section className="_wt-section_tbzztj_24 jb-transparent-section qp-home-intro">
       <div className="_wt-container_tbzztj_1">
-        <div className="_wt-row_mag83e_16 _wt-row_row-gap-size_0_mag83e_1 _wt-row_column-gap-size_m_mag83e_16 _wt-row_justify-content_space-between_mag83e_1 _wt-row_align-items_flex-end_mag83e_1">
-          <div className="_wt-col_mag83e_1 _wt-col-6_mag83e_1 _wt-col-lg-7_mag83e_1 _wt-col-lg_mag83e_1 _wt-col-md-12_mag83e_1 _wt-col-md_mag83e_1">
+        <div className="_wt-row_mag83e_16 _wt-row_row-gap-size_0_mag83e_1 _wt-row_column-gap-size_m_mag83e_16 _wt-row_justify-content_space-between_mag83e_1 qp-home-intro__row">
+          <div className="_wt-col_mag83e_1 _wt-col-6_mag83e_1 _wt-col-lg-7_mag83e_1 _wt-col-lg_mag83e_1 _wt-col-md-12_mag83e_1 _wt-col-md_mag83e_1 qp-home-intro__lead">
             <h1 className="_rs-text-1_dz36gk_1 _rs-text_hardness_hard_dz36gk_1 air-section-title qp-home-intro__title">
               <span className="qp-home-intro__chunk qp-home-intro__chunk--custom">Build custom</span>{" "}
               <span className="qp-home-intro__chunk qp-home-intro__chunk--feeds">data feeds</span>
@@ -162,7 +162,8 @@ export function HomeIntro() {
           </div>
           <div className="_wt-col_mag83e_1 _wt-col-5_mag83e_1 _wt-col-lg-5_mag83e_1 _wt-col-lg_mag83e_1 _wt-col-md-12_mag83e_1 _wt-col-md_mag83e_1 jb-offset-top-md-24">
             <p className="_rs-text-1_dz36gk_1 _rs-text_hardness_hard_dz36gk_1 qp-home-intro__copy">
-              Give your agents a continuously updated view of the world. Qpearance gathers data from many sources, builds signals around what you track, and delivers custom feeds into your agents, apps, and workflows.
+              <span className="qp-home-intro__copy-lead">Give your agents a continuously updated view of the world.</span>{" "}
+              Qpearance gathers data, builds signals around what you track, and delivers custom feeds to your agents, apps, and workflows.
             </p>
           </div>
         </div>

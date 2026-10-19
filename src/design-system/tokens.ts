@@ -53,9 +53,9 @@ export const airTokens: AirToken[] = [
   },
   {
     name: "font-ui",
-    value: "Instrument Sans",
+    value: "Qpearance Sans",
     source: "measured",
-    note: "Replaced JetBrains Sans on marketing chrome. Optical retune: lowercase rungs ×1.07, Instrument tracking curve. Inter remains on .air-demo-surface.",
+    note: "OFL derivative of Instrument Sans with round i/j tittles. Optical retune: lowercase rungs ×1.07, Instrument tracking curve. Inter remains on .air-demo-surface.",
   },
   {
     name: "font-display",
@@ -94,10 +94,28 @@ export const airTokens: AirToken[] = [
     note: "--wt-offset-top-unit is 24px, 16px at width<=640px. Measured padding 1px 0 96px above 640 and 1px 0 64px at 640 and 390. Top padding stays 1px.",
   },
   {
+    name: "spacing-scale",
+    value: "8 / 16 / 24 / 32 / 40 / 48 / 56 / 64 / 72 / 80 / 96 / 112 / 128",
+    source: "directly-extracted",
+    note: "8px scale. --qp-space-n. --qp-gutter-s 16 sibling cards, --qp-gutter 24 module/column, --qp-gutter-m 32 loose groups, --qp-inset 22/16 page edge, --wt-offset-top-unit 24/16 section unit.",
+  },
+  {
     name: "radius-card",
     value: "8px",
     source: "directly-extracted",
     note: "Feature, IDE, governance, try, and Junie surfaces.",
+  },
+  {
+    name: "button-ink",
+    value: "#26241f",
+    source: "measured",
+    note: "Dark sand fill for buttons — one step deeper than #2e2c27, still the umber of #e6e4db / #eeede9 rather than cool #19191c. Label #faf9f5.",
+  },
+  {
+    name: "radius-button",
+    value: "12px",
+    source: "measured",
+    note: "Button corners. 12px squircle on ~40px height: softer than 8px, still a rectangle not a pill.",
   },
   {
     name: "breakpoints",
