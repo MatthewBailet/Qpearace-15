@@ -27,12 +27,12 @@ export function industryBlendDuration(from: string, to: string) {
 
 export function fieldLayout(width: number, height: number) {
   const compact = width < 640;
-  const radius = Math.min(width, height) * (compact ? 0.36 : 0.4);
+  const radius = Math.min(width, height) * (compact ? 0.68 : 0.72);
   return {
     radius,
-    gap: compact ? 16 : 40,
-    originX: width / 2,
-    originY: height / 2,
+    gap: compact ? 16 : 36,
+    originX: width + radius * 0.04,
+    originY: height * 0.46,
   };
 }
 

@@ -2,10 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from "re
 import {
   INDUSTRIES,
   INDUSTRY_HOLD,
-  composeDot,
   fieldLayout,
-  industryBlendDuration,
-  type Look,
 } from "./industryField";
 import { ProductBand } from "./ProductBand";
 
@@ -29,20 +26,73 @@ type Playback = {
   motion: number;
   hold: number;
   select: number | null;
+  spin: number;
 };
 
-const INK = { r: 42, g: 41, b: 38 };
+const FIELD_QUIET = { r: 196, g: 194, b: 188 };
+const FIELD_MARK = { r: 168, g: 166, b: 160 };
+const CURRENT_CLAY = { r: 205, g: 108, b: 76 };
+const CURRENT_PENCIL = { r: 228, g: 161, b: 72 };
+const CURRENT_MINERAL = { r: 87, g: 142, b: 124 };
+const CURRENT_PERIOD = 22;
+const CURRENT_TRAIL = 9;
+
+function mixTone(
+  base: { r: number; g: number; b: number },
+  swatch: { r: number; g: number; b: number },
+  amount: number,
+) {
+  return {
+    r: Math.round(base.r + (swatch.r - base.r) * amount),
+    g: Math.round(base.g + (swatch.g - base.g) * amount),
+    b: Math.round(base.b + (swatch.b - base.b) * amount),
+  };
+}
+
+function currentPoint(phase: number) {
+  const angle = phase * Math.PI * 2;
+  return {
+    x: 0.46 * Math.cos(angle) + 0.1 * Math.cos(2 * angle),
+    y: 0.36 * Math.sin(angle) - 0.07 * Math.sin(2 * angle),
+  };
+}
+
+function signalLook(structural: boolean, nx: number, ny: number, time: number) {
+  const base = structural ? FIELD_MARK : FIELD_QUIET;
+  const phase = time / CURRENT_PERIOD;
+  let emphasis = 0;
+  let swatch = CURRENT_CLAY;
+  for (let step = 0; step < CURRENT_TRAIL; step += 1) {
+    const point = currentPoint(phase - step * 0.016);
+    const distance = Math.hypot(nx - point.x, ny - point.y);
+    const near = Math.exp(-(distance * distance) / (2 * 0.15 * 0.15));
+    const along = 1 - step / CURRENT_TRAIL;
+    const influence = near * (0.35 + 0.65 * along);
+    if (influence <= emphasis) continue;
+    emphasis = influence;
+    swatch = step < 3 ? CURRENT_CLAY : step < 6 ? CURRENT_PENCIL : CURRENT_MINERAL;
+  }
+  const amount = Math.min(0.46, 0.12 + emphasis * 0.4);
+  return {
+    scale: 1 + emphasis * 0.38,
+    alpha: (structural ? 0.78 : 0.7) + emphasis * 0.08,
+    tone: emphasis < 0.08 ? base : mixTone(base, swatch, amount),
+  };
+}
 const LAYERS = 6;
 const RINGS = 9;
-const CENTER_FADE = 0.32;
-const CENTER_HOLD = 0.08;
-const CENTER_TRAVEL = 0.68;
-const CENTER_IN = CENTER_FADE + CENTER_HOLD + CENTER_TRAVEL;
-const REST = 0.38;
-const LEAD = CENTER_IN + REST;
+const RING_LEAD = 0.08;
+const PRINT_IN_AT = 0.18;
 const LAYER_STEP = 0.07;
 const POP = 0.24;
 const SIZE_SETTLE = 0.58;
+const WHEEL_ANGLE = -Math.PI / 3;
+const WHEEL_SPIN = 0.86;
+const WHEEL_SPIN_FINANCE = 1.05;
+const WHEEL_FLARE = 0.018;
+const WHEEL_BLEND_IN = 0.16;
+const WHEEL_BLEND_SPAN = 0.64;
+const SHOW_INDUSTRY_CAROUSEL = false;
 
 function hash(n: number) {
   let x = Math.imul(n ^ 0x9e3779b9, 0x85ebca6b);
@@ -93,17 +143,47 @@ function easeReveal(t: number) {
   return cubicBezier(t, 0.16, 1, 0.3, 1);
 }
 
-function easeTravel(t: number) {
+function easeWheel(t: number) {
   return cubicBezier(t, 0.4, 0, 0.15, 1);
 }
 
-function centerMotion(clock: number) {
-  const fade = easeOut(clock / CENTER_FADE);
-  const travelAt = CENTER_FADE + CENTER_HOLD;
-  const travel = easeTravel((clock - travelAt) / CENTER_TRAVEL);
-  const ghost = 0.2 * fade;
-  const alpha = ghost + (1 - ghost) * easeOut(travel / 0.7);
-  return { fade, travel, alpha };
+function wheelDuration(from: string, to: string) {
+  if (from === "Finance" || to === "Finance") return WHEEL_SPIN_FINANCE;
+  return WHEEL_SPIN;
+}
+
+function canvasDpr() {
+  return Math.min(3, Math.max(2, window.devicePixelRatio || 1));
+}
+
+function fitCanvas(
+  canvas: HTMLCanvasElement,
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+) {
+  const dpr = canvasDpr();
+  const w = Math.max(1, Math.round(width));
+  const h = Math.max(1, Math.round(height));
+  const bw = Math.round(w * dpr);
+  const bh = Math.round(h * dpr);
+  if (canvas.width !== bw) canvas.width = bw;
+  if (canvas.height !== bh) canvas.height = bh;
+  canvas.style.width = `${w}px`;
+  canvas.style.height = `${h}px`;
+  return { w, h, dpr };
+}
+
+function fillDot(
+  context: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  radius: number,
+  dpr: number,
+) {
+  context.beginPath();
+  context.arc(x * dpr, y * dpr, Math.max(0.9, radius * dpr), 0, Math.PI * 2);
+  context.fill();
 }
 
 function arrivalFor(seed: number) {
@@ -138,7 +218,7 @@ function buildField(radius: number) {
       });
     }
   }
-  const end = LEAD + (LAYERS - 1) * LAYER_STEP + POP + SIZE_SETTLE;
+  const end = RING_LEAD + (LAYERS - 1) * LAYER_STEP + POP + SIZE_SETTLE;
   return { dots, rest: spacing * 0.108, spacing, end };
 }
 
@@ -151,7 +231,7 @@ function OfferDotMotif() {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { alpha: true });
     if (!context) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -169,21 +249,28 @@ function OfferDotMotif() {
     function layout() {
       const width = Math.max(1, canvas!.clientWidth);
       const height = Math.max(1, canvas!.clientHeight);
-      if (Math.abs(width - viewW) < 0.5 && Math.abs(height - viewH) < 0.5 && canvas!.width > 0) return;
-      viewW = width;
-      viewH = height;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas!.width = Math.round(width * dpr);
-      canvas!.height = Math.round(height * dpr);
-      context!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const spacing = Math.max(25, Math.min(width, height) * 0.13);
+      const dpr = canvasDpr();
+      const targetW = Math.round(Math.max(1, Math.round(width)) * dpr);
+      if (
+        Math.abs(width - viewW) < 0.5 &&
+        Math.abs(height - viewH) < 0.5 &&
+        canvas!.width === targetW
+      ) {
+        return;
+      }
+      const fitted = fitCanvas(canvas!, context!, width, height);
+      viewW = fitted.w;
+      viewH = fitted.h;
+      const spacing = Math.max(25, Math.min(fitted.w, fitted.h) * 0.13);
       const radius = spacing * RINGS;
       field = buildField(radius);
       origin = { cx: width, cy: height + spacing * 0.38, radius };
     }
 
     function paint(clock: number) {
-      context!.clearRect(0, 0, viewW, viewH);
+      const dpr = canvasDpr();
+      context!.setTransform(1, 0, 0, 1, 0, 0);
+      context!.clearRect(0, 0, canvas!.width, canvas!.height);
       const { cx, cy, radius } = origin;
       for (const dot of field.dots) {
         if (dot.layer < 0) continue;
@@ -203,9 +290,7 @@ function OfferDotMotif() {
         const reach = Math.hypot(dot.x, dot.y) / radius;
         context!.globalAlpha = popAlpha * (dot.structural ? 0.92 : 0.78) * (1 - reach * 0.16);
         context!.fillStyle = `rgb(${ink.r}, ${ink.g}, ${ink.b})`;
-        context!.beginPath();
-        context!.arc(x, y, dotR, 0, Math.PI * 2);
-        context!.fill();
+        fillDot(context!, x, y, dotR, dpr);
       }
       context!.globalAlpha = 1;
     }
@@ -249,198 +334,6 @@ function OfferDotMotif() {
   }, []);
 
   return <canvas ref={ref} className="qp-hero-offer__dots" aria-hidden="true" />;
-}
-
-function HeroDotField({
-  playback,
-  onSettled,
-  onIndex,
-}: {
-  playback: RefObject<Playback>;
-  onSettled?: () => void;
-  onIndex?: (index: number) => void;
-}) {
-  const ref = useRef<HTMLCanvasElement>(null);
-  const onSettledRef = useRef(onSettled);
-  const onIndexRef = useRef(onIndex);
-  onSettledRef.current = onSettled;
-  onIndexRef.current = onIndex;
-
-  useEffect(() => {
-    const canvas = ref.current;
-    const parent = canvas?.parentElement;
-    if (!canvas || !parent) return;
-
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
-    let frameId = 0;
-    let alive = true;
-    let announced = false;
-    let published = playback.current.shown;
-    let last = 0;
-    let elapsed = playback.current.reduced ? buildField(1).end : 0;
-    let viewW = 1;
-    let viewH = 1;
-    let field = buildField(1);
-    const look: Look = { r: 0, g: 0, b: 0, scale: 1, alpha: 1, emphasis: 0 };
-
-    function announce() {
-      if (announced) return;
-      announced = true;
-      onSettledRef.current?.();
-    }
-
-    function resize() {
-      const rect = parent!.getBoundingClientRect();
-      const width = Math.max(1, rect.width);
-      const height = Math.max(1, rect.height);
-      if (Math.abs(width - viewW) < 0.5 && Math.abs(height - viewH) < 0.5 && canvas!.width > 0) return;
-      viewW = width;
-      viewH = height;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas!.width = Math.round(width * dpr);
-      canvas!.height = Math.round(height * dpr);
-      context!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      field = buildField(fieldLayout(width, height).radius);
-      paint();
-    }
-
-    function paint() {
-      const clock = playback.current.reduced ? field.end : elapsed;
-      const maxScale = field.spacing > 0 ? (field.spacing * 0.42) / field.rest : 2.2;
-      const pb = playback.current;
-      const from = INDUSTRIES[pb.shown] ?? INDUSTRIES[0];
-      const to = pb.incoming == null ? null : INDUSTRIES[pb.incoming];
-      const origin = fieldLayout(viewW, viewH);
-      const cx = origin.originX;
-      const cy = origin.originY;
-      const rise = field.spacing * RINGS;
-      context!.clearRect(0, 0, viewW, viewH);
-
-      for (const dot of field.dots) {
-        const center = dot.layer < 0;
-        const jitter = center
-          ? 0
-          : ((hash(dot.layer * 997 + Math.round(dot.x * 10 + dot.y * 13)) % 55) / 1000);
-        const start = center ? 0 : LEAD + dot.layer * LAYER_STEP + jitter;
-        const span = center ? CENTER_IN : POP;
-        const linear = (clock - start) / span;
-        if (linear <= 0) continue;
-        const motion = center ? centerMotion(clock) : null;
-        const shown = motion ? motion.alpha : easeReveal(linear);
-        if (shown <= 0) continue;
-        const grown = motion ? 0.72 + 0.28 * motion.fade : 0.38 + 0.62 * shown;
-        const popAlpha = motion ? motion.alpha : easeOut(linear / 0.78);
-        composeDot(from, to, pb.blend, pb.motion, pb.reduced, dot.nx, dot.ny, dot.structural, look);
-        const industryScale = Math.min(look.scale, maxScale);
-        const settle = pb.reduced ? 1 : easeOut((clock - start - span) / SIZE_SETTLE);
-        const restScale = dot.arrival + (industryScale - dot.arrival) * settle;
-        const scale = restScale * grown;
-        const alpha = popAlpha + (look.alpha - popAlpha) * settle;
-        const dy = motion ? (1 - motion.travel) * rise : 0;
-        const r = INK.r + (look.r - INK.r) * settle;
-        const g = INK.g + (look.g - INK.g) * settle;
-        const b = INK.b + (look.b - INK.b) * settle;
-        context!.globalAlpha = alpha;
-        context!.fillStyle = `rgb(${r | 0}, ${g | 0}, ${b | 0})`;
-        context!.beginPath();
-        context!.arc(cx + dot.x, cy + dot.y + dy, field.rest * scale, 0, Math.PI * 2);
-        context!.fill();
-      }
-      context!.globalAlpha = 1;
-    }
-
-    function advance(dt: number) {
-      const pb = playback.current;
-      if (pb.select != null) {
-        const target = pb.select;
-        pb.select = null;
-        const dominant = pb.incoming != null && pb.blend >= 0.5 ? pb.incoming : pb.shown;
-        if (pb.reduced || target === dominant) {
-          pb.shown = target;
-          pb.incoming = null;
-          pb.blend = 0;
-        } else {
-          pb.shown = dominant;
-          pb.incoming = target;
-          pb.blend = 0;
-        }
-      }
-      if (pb.reduced) {
-        elapsed = field.end;
-        return;
-      }
-      if (elapsed < field.end) {
-        if (elapsed >= LEAD) pb.motion += dt;
-        return;
-      }
-      if (!pb.playing) return;
-      pb.motion += dt;
-      if (pb.incoming != null) {
-        pb.blend += dt / industryBlendDuration(INDUSTRIES[pb.shown], INDUSTRIES[pb.incoming]);
-        if (pb.blend >= 1) {
-          pb.shown = pb.incoming;
-          pb.incoming = null;
-          pb.blend = 0;
-          pb.hold = 0;
-        }
-        return;
-      }
-      pb.hold += dt;
-      if (pb.hold >= INDUSTRY_HOLD) {
-        pb.incoming = (pb.shown + 1) % INDUSTRIES.length;
-        pb.blend = 0;
-        pb.hold = 0;
-      }
-    }
-
-    function tick(now: number) {
-      if (!alive) return;
-      if (last === 0) last = now;
-      const raw = (now - last) / 1000;
-      last = now;
-      const frozen = document.hidden || !playback.current.visible;
-      const dt = frozen || raw > 0.25 ? 0 : raw;
-      if (!frozen) {
-        elapsed += dt;
-        advance(dt);
-        paint();
-        if (elapsed >= LEAD + (LAYERS - 1) * LAYER_STEP + POP * 0.45) announce();
-        const label = playback.current.incoming ?? playback.current.shown;
-        if (label !== published) {
-          published = label;
-          onIndexRef.current?.(label);
-        }
-      }
-      frameId = window.requestAnimationFrame(tick);
-    }
-
-    resize();
-    const boxObserver = new ResizeObserver(resize);
-    boxObserver.observe(parent);
-    const viewObserver = new IntersectionObserver(
-      ([entry]) => {
-        playback.current.visible = entry.isIntersecting;
-      },
-      { threshold: 0 },
-    );
-    viewObserver.observe(parent);
-    if (playback.current.reduced) {
-      elapsed = field.end;
-      paint();
-      announce();
-    }
-    frameId = window.requestAnimationFrame(tick);
-    return () => {
-      alive = false;
-      window.cancelAnimationFrame(frameId);
-      boxObserver.disconnect();
-      viewObserver.disconnect();
-    };
-  }, [playback]);
-
-  return <canvas ref={ref} className="qp-hero-dots" aria-hidden="true" />;
 }
 
 const ARC_STEP = 0.175;
@@ -502,7 +395,7 @@ function IndustryCarousel({
   const cx = layout.originX;
   const cy = layout.originY;
   const inset = box && box.w < 640 ? 20 : 32;
-  const slot = box ? Math.max(96, cx - orbit - inset) : 160;
+  const slot = box ? Math.max(96, box.w - cx - orbit - inset) : 160;
 
   return (
     <div
@@ -526,9 +419,9 @@ function IndustryCarousel({
                 key={word}
                 className={`qp-hero-industries-spoke${far ? " is-far" : ""}`}
                 style={{
-                  left: cx - Math.cos(fan) * orbit,
+                  left: cx + Math.cos(fan) * orbit,
                   top: cy + Math.sin(fan) * orbit,
-                  transform: `rotate(${-fan}rad)`,
+                  transform: `rotate(${fan}rad)`,
                 }}
               >
                 <button
@@ -557,47 +450,18 @@ function IndustryCarousel({
 }
 
 export function HeroBanner() {
-  const playback = useRef<Playback>({
-    playing: true,
-    reduced: false,
-    visible: true,
-    shown: 0,
-    incoming: null,
-    blend: 0,
-    motion: 0,
-    hold: 0,
-    select: null,
-  });
-  const [ready, setReady] = useState(false);
-  const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(true);
-
-  useLayoutEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => {
-      playback.current.reduced = media.matches;
-      playback.current.playing = !media.matches;
-      setPlaying(!media.matches);
-    };
-    sync();
-    media.addEventListener("change", sync);
-    return () => media.removeEventListener("change", sync);
-  }, []);
-
-  function selectIndustry(next: number) {
-    playback.current.select = next;
-  }
-
-  function togglePlayback() {
-    if (playback.current.reduced) return;
-    const next = !playback.current.playing;
-    playback.current.playing = next;
-    setPlaying(next);
-  }
-
   return (
     <section className="_wt-section_tbzztj_24 _section_yRyT2 qp-home-hero">
-      <ProductBand />
+      <div className="_hero_d8I6x">
+        <div className="qp-spotlight">
+          <p className="qp-spotlight__eyebrow">Qpearance 1.6</p>
+          <h2 className="qp-spotlight__text">
+            Our next era of frontier simulation, built around your world
+          </h2>
+          <div className="qp-spotlight__media" role="presentation" />
+        </div>
+        <ProductBand />
+      </div>
       <div className="_hero_d8I6x">
         <div className="qp-hero-pair">
           <article className="qp-hero-pair__card qp-hero-pair__card--narrow">
@@ -612,33 +476,6 @@ export function HeroBanner() {
               <p className="qp-hero-pair__desc">Send feeds to your agents, apps, and workflows.</p>
             </div>
           </article>
-        </div>
-        <div
-          className={`qp-hero-stage${ready ? " is-ready" : ""}${playing ? "" : " is-paused"}`}
-        >
-          <div className="qp-hero-layout">
-            <IndustryCarousel active={ready} index={index} onSelect={selectIndustry} />
-            <div className="qp-hero-shot">
-              <HeroDotField playback={playback} onSettled={() => setReady(true)} onIndex={setIndex} />
-            </div>
-          </div>
-          <button
-            className="qp-hero-transport"
-            type="button"
-            aria-label={playing ? "Pause" : "Play"}
-            onClick={togglePlayback}
-          >
-            {playing ? (
-              <svg viewBox="0 0 16 16" aria-hidden="true">
-                <rect x="4" y="3" width="2.5" height="10" rx="0.8" />
-                <rect x="9.5" y="3" width="2.5" height="10" rx="0.8" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M5 3.2v9.6L13 8z" />
-              </svg>
-            )}
-          </button>
         </div>
       </div>
     </section>

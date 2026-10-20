@@ -113,9 +113,9 @@ export const airTokens: AirToken[] = [
   },
   {
     name: "radius-button",
-    value: "12px",
+    value: "999px",
     source: "measured",
-    note: "Button corners. 12px squircle on ~40px height: softer than 8px, still a rectangle not a pill.",
+    note: "Full pill. Radius stays larger than half the height so every size ends in a semicircle. Horizontal padding is half the height plus 2px so the label clears the curve.",
   },
   {
     name: "breakpoints",

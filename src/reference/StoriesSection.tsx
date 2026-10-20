@@ -2,14 +2,17 @@ const sideStories = [
   {
     title: "Coverage across the work you track",
     meta: "Coverage",
+    swatch: "cactus",
   },
   {
     title: "Classification that keeps every feed coherent",
     meta: "Models",
+    swatch: "heather",
   },
   {
     title: "Feeds that stay current as the web changes",
     meta: "Feeds",
+    swatch: "matcha",
   },
 ] as const;
 
@@ -29,7 +32,7 @@ export function StoriesSection() {
           <div className="qp-stories__side">
             {sideStories.map((story) => (
               <article key={story.meta} className="qp-stories__item">
-                <div className="qp-stories__media" aria-hidden="true" />
+                <div className="qp-stories__media" data-swatch={story.swatch} aria-hidden="true" />
                 <h3 className="qp-stories__title">{story.title}</h3>
                 <p className="qp-stories__meta">
                   <strong>{story.meta}</strong>

@@ -30,6 +30,24 @@ const swatches: Record<string, string> = {
   "cloud-banner-fill": "#e5e4d9",
 };
 
+const paperSwatches = [
+  ["paper", "var(--qp-swatch-paper)"],
+  ["medium", "var(--qp-swatch-paper-medium)"],
+  ["dark", "var(--qp-swatch-paper-dark)"],
+  ["oat", "var(--qp-swatch-oat)"],
+  ["manilla", "var(--qp-swatch-manilla)"],
+  ["kraft", "var(--qp-swatch-kraft)"],
+  ["peach", "var(--qp-swatch-peach)"],
+  ["clay", "var(--qp-swatch-clay)"],
+  ["coral", "var(--qp-swatch-coral)"],
+  ["fig", "var(--qp-swatch-fig)"],
+  ["heather", "var(--qp-swatch-heather)"],
+  ["cactus", "var(--qp-swatch-cactus)"],
+  ["matcha", "var(--qp-swatch-matcha)"],
+  ["olive", "var(--qp-swatch-olive)"],
+  ["sky", "var(--qp-swatch-sky)"],
+] as const;
+
 export function GalleryPage() {
   const [surface, setSurface] = useState("studio");
 
@@ -48,6 +66,20 @@ export function GalleryPage() {
           </div>
 
           <div className="qp-system__block qp-offset-64">
+            <Heading>Swatches</Heading>
+            <div className="qp-offset-24">
+              <div className="qp-swatch-row">
+                {paperSwatches.map(([name, fill]) => (
+                  <div className="qp-swatch-chip" key={name}>
+                    <div className="qp-swatch-chip__fill" style={{ background: fill }} />
+                    <p className="qp-swatch-chip__name">{name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="qp-system__block">
             <Heading>Tokens</Heading>
             <div className="qp-offset-24">
               <Grid columns={3}>

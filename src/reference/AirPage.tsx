@@ -1,20 +1,8 @@
 import header from "./partials/header.html?raw";
 import footer from "./partials/footer.html?raw";
-import surfaces from "./partials/section-01.html?raw";
-import cloud from "./partials/section-02.html?raw";
-import ides from "./partials/section-03.html?raw";
-import teams from "./partials/section-04.html?raw";
-import teamsCards from "./partials/section-04-cards.html?raw";
-import governance from "./partials/section-05.html?raw";
-import junie from "./partials/section-06.html?raw";
-import context from "./partials/section-07.html?raw";
-import access from "./partials/section-08.html?raw";
-import closing from "./partials/section-09.html?raw";
-import { useState } from "react";
-import { ExploreCardsSection } from "./ExploreCardsSection";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { StoriesSection } from "./StoriesSection";
 import { HeroBanner, HomeOffer } from "./HeroBanner";
-import { HomeIntro } from "./HomeIntro";
 import "./slots.css";
 
 function Slot({ html }: { html: string }) {
@@ -27,46 +15,6 @@ export function SiteHeader() {
 
 export function HomeHeroSection() {
   return <HeroBanner />;
-}
-
-export function TeamsCardsSection() {
-  return <Slot html={teamsCards} />;
-}
-
-export function SurfacesSection() {
-  return <Slot html={surfaces} />;
-}
-
-export function CloudSection() {
-  return <Slot html={cloud} />;
-}
-
-export function IdesSection() {
-  return <Slot html={ides} />;
-}
-
-export function TeamsSection() {
-  return <Slot html={teams} />;
-}
-
-export function GovernanceSection() {
-  return <Slot html={governance} />;
-}
-
-export function JunieSection() {
-  return <Slot html={junie} />;
-}
-
-export function ContextSection() {
-  return <Slot html={context} />;
-}
-
-export function AccessSection() {
-  return <Slot html={access} />;
-}
-
-export function ClosingSection() {
-  return <Slot html={closing} />;
 }
 
 export function SiteFooter() {
@@ -111,32 +59,139 @@ function NoticeBar() {
   );
 }
 
+const BANNER_LINES = [
+  ["Frontier", "all-purpose", "simulation."],
+  ["Built", "around", "your", "world."],
+] as const;
+
+const BANNER_WORD_DELAYS = [0.14, 0.4, 0.22, 0.48, 0.18, 0.36, 0.28];
+
+const COMPOSER_PROMPTS = [
+  "A harbor the morning a storm arrives",
+  "A hospital wing during shift change",
+  "A downtown block at evening rush",
+  "A factory line running at capacity",
+  "A neighborhood after heavy rain",
+];
+
+function BannerComposer() {
+  const [value, setValue] = useState("");
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (value.trim()) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      setIndex((current) => (current + 1) % COMPOSER_PROMPTS.length);
+    }, 3400);
+    return () => window.clearInterval(id);
+  }, [value]);
+
+  return (
+    <form className={`qp-composer${value.trim() ? " is-filled" : ""}`} onSubmit={(event) => event.preventDefault()}>
+      <div className="qp-composer__ghost" aria-hidden="true">
+        <div className="qp-composer__ghost-track" style={{ transform: `translateY(${index * -24}px)` }}>
+          {COMPOSER_PROMPTS.map((line, lineIndex) => (
+            <div key={line} className={`qp-composer__ghost-line${lineIndex === index ? " is-on" : ""}`}>
+              {line}
+            </div>
+          ))}
+        </div>
+      </div>
+      <textarea
+        className="qp-composer__input"
+        aria-label="Describe where to start"
+        rows={3}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+      />
+      <button className="qp-composer__send" type="submit" disabled={!value.trim()} aria-label="Send">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M10.94 5.65a1.5 1.5 0 0 1 2.12 0l4.65 4.65a1 1 0 0 1-1.42 1.41L13 8.41V18a1 1 0 0 1-2 0V8.41L7.71 11.7a1 1 0 0 1-1.42-1.41z"
+          />
+        </svg>
+      </button>
+    </form>
+  );
+}
+
+function BannerTitle() {
+  let wordIndex = 0;
+
+  return (
+    <h1 className="qp-top-stage__title">
+      {BANNER_LINES.map((line) => (
+        <span key={line[0]} className="qp-top-stage__line">
+          {line.map((word, index) => {
+            const delay = BANNER_WORD_DELAYS[wordIndex++];
+            return (
+              <span key={word}>
+                {index > 0 ? " " : null}
+                <span className="qp-top-stage__word" style={{ transitionDelay: `${delay}s` }}>
+                  {word}
+                </span>
+              </span>
+            );
+          })}
+        </span>
+      ))}
+    </h1>
+  );
+}
+
 export function AirPage() {
+  const [bannerIn, setBannerIn] = useState(false);
+
+  useEffect(() => {
+    const first = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setBannerIn(true));
+    });
+    return () => cancelAnimationFrame(first);
+  }, []);
+
+  useLayoutEffect(() => {
+    const header = document.getElementById("wt-site-header");
+    const stage = document.querySelector(".qp-top-stage");
+    if (!header || !stage) return;
+
+    const update = () => {
+      const stageBottom = stage.getBoundingClientRect().bottom;
+      const headerBottom = header.getBoundingClientRect().bottom;
+      header.classList.toggle("is-past-banner", stageBottom <= headerBottom + 1);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      header.classList.remove("is-past-banner");
+    };
+  }, []);
+
   return (
     <div className="page-color-default-purple">
       <NoticeBar />
       <div className="qp-page-shell">
       <SiteHeader />
       <div className="air-overview">
-        <svg className="qp-page-arcs" viewBox="0 0 2096 1200" fill="none" aria-hidden="true">
-          <circle cx="1980" cy="340" r="560" stroke="#DDDAD0" />
-          <circle cx="90" cy="980" r="500" stroke="#DDDAD0" />
-        </svg>
-        <HomeIntro />
-        <HomeHeroSection />
-        <StoriesSection />
-        <HomeOffer />
-        <ExploreCardsSection />
-        <TeamsCardsSection />
-        <SurfacesSection />
-        <JunieSection />
-        <CloudSection />
-        <IdesSection />
-        <TeamsSection />
-        <GovernanceSection />
-        <ContextSection />
-        <AccessSection />
-        <ClosingSection />
+        <div className="qp-top-stage">
+          <div className={`qp-top-stage__inner${bannerIn ? " is-in" : ""}`}>
+            <BannerTitle />
+            <div className="qp-composer-block">
+              <BannerComposer />
+            </div>
+          </div>
+        </div>
+        <div className="qp-below-banner">
+          <div className="qp-banner-card" aria-hidden="true" />
+          <HomeHeroSection />
+          <StoriesSection />
+          <HomeOffer />
+        </div>
       </div>
       <SiteFooter />
       </div>

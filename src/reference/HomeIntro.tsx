@@ -27,8 +27,8 @@ function RotatingWord({ interval = 4800 }: { interval?: number }) {
   useLayoutEffect(() => {
     const currentW = sizerRef.current?.offsetWidth ?? 0;
     const nextW = nextSizerRef.current?.offsetWidth ?? 0;
-    const next = phase === "out" || phase === "from" ? Math.max(currentW, nextW) : currentW;
-    if (next > 0) setWidth(next);
+    const slot = phase === "out" || phase === "from" ? Math.max(currentW, nextW) : currentW;
+    if (slot > 0) setWidth(slot);
   }, [word, nextWord, phase]);
 
   useEffect(() => {
@@ -152,18 +152,21 @@ export function HomeIntro() {
         <div className="_wt-row_mag83e_16 _wt-row_row-gap-size_0_mag83e_1 _wt-row_column-gap-size_m_mag83e_16 _wt-row_justify-content_space-between_mag83e_1 qp-home-intro__row">
           <div className="_wt-col_mag83e_1 _wt-col-6_mag83e_1 _wt-col-lg-7_mag83e_1 _wt-col-lg_mag83e_1 _wt-col-md-12_mag83e_1 _wt-col-md_mag83e_1 qp-home-intro__lead">
             <h1 className="_rs-text-1_dz36gk_1 _rs-text_hardness_hard_dz36gk_1 air-section-title qp-home-intro__title">
-              <span className="qp-home-intro__chunk qp-home-intro__chunk--custom">Build custom</span>{" "}
-              <span className="qp-home-intro__chunk qp-home-intro__chunk--feeds">data feeds</span>
-              <br className="qp-home-intro__br-desktop" aria-hidden="true" />
-              <span className="qp-home-intro__tail">
-                for your <RotatingWord />
+              <span className="qp-home-intro__lines">
+                <span className="qp-home-intro__line">Data workspaces,</span>
+                <span className="qp-home-intro__line">designed for</span>
+                <span className="qp-home-intro__line">
+                  your <RotatingWord />
+                </span>
+              </span>
+              <span className="qp-home-intro__line-ghosts" aria-hidden>
+                <span>Data workspaces,</span>
+                <span>your business</span>
               </span>
             </h1>
-          </div>
-          <div className="_wt-col_mag83e_1 _wt-col-5_mag83e_1 _wt-col-lg-5_mag83e_1 _wt-col-lg_mag83e_1 _wt-col-md-12_mag83e_1 _wt-col-md_mag83e_1 jb-offset-top-md-24">
-            <p className="_rs-text-1_dz36gk_1 _rs-text_hardness_hard_dz36gk_1 qp-home-intro__copy">
+            <p className="qp-home-intro__copy">
               <span className="qp-home-intro__copy-lead">Give your agents a continuously updated view of the world.</span>{" "}
-              Qpearance gathers data, builds signals around what you track, and delivers custom feeds to your agents, apps, and workflows.
+              Qpearance gathers data, builds signals for what you track, and delivers feeds to your agents, apps, and workflows.
             </p>
           </div>
         </div>
