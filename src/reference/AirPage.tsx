@@ -2,7 +2,9 @@ import header from "./partials/header.html?raw";
 import footer from "./partials/footer.html?raw";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { StoriesSection } from "./StoriesSection";
-import { HeroBanner, HomeOffer } from "./HeroBanner";
+import { FeatureRail } from "./FeatureRail";
+import { BannerGlobe } from "./BannerGlobe";
+import { HeroBanner, HomeOffer, Spotlight } from "./HeroBanner";
 import "./slots.css";
 
 function Slot({ html }: { html: string }) {
@@ -19,6 +21,63 @@ export function HomeHeroSection() {
 
 export function SiteFooter() {
   return <Slot html={footer} />;
+}
+
+function BannerCard() {
+  return (
+    <article className="qp-banner-card">
+      <div className="qp-banner-card__intro">
+        <div className="qp-banner-card__copy">
+          <h2 className="qp-banner-card__title">Qpearance 1.6 is currently in beta testing</h2>
+          <p className="qp-banner-card__desc">
+            We’re inviting a limited set of teams to run the models across cities, facilities, networks, and the work
+            that moves through them—and to help us keep them current as the world changes.
+          </p>
+        </div>
+        <a className="qp-banner-card__cta" href="#request-access">
+          Request Early Access
+        </a>
+      </div>
+      <div className="qp-banner-card__more">
+        <p className="qp-banner-card__kicker">Learn more</p>
+        <ul className="qp-banner-card__links">
+          <li>
+            <a href="#introducing">
+              Introducing Omni-purpose models
+              <BannerCardArrow />
+            </a>
+          </li>
+          <li>
+            <a href="#environments">
+              Simulation across every environment
+              <BannerCardArrow />
+            </a>
+          </li>
+          <li>
+            <a href="#model-details">
+              Model details
+              <BannerCardArrow />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </article>
+  );
+}
+
+function BannerCardArrow() {
+  return (
+    <svg className="qp-banner-card__arrow" viewBox="0 0 16 16" aria-hidden="true">
+      <path
+        d="M3 8h9.2M9.2 4.2 13 8l-3.8 3.8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 }
 
 function NoticeBar() {
@@ -60,11 +119,13 @@ function NoticeBar() {
 }
 
 const BANNER_LINES = [
-  ["Frontier", "all-purpose", "simulation."],
+  ["Experience", "frontier", "all-purpose", "simulation."],
   ["Built", "around", "your", "world."],
 ] as const;
 
-const BANNER_WORD_DELAYS = [0.14, 0.4, 0.22, 0.48, 0.18, 0.36, 0.28];
+const BANNER_MOBILE_BREAK_AFTER = new Set(["frontier"]);
+
+const BANNER_WORD_DELAYS = [0.26, 0.14, 0.4, 0.22, 0.48, 0.18, 0.36, 0.28];
 
 const COMPOSER_PROMPTS = [
   "A harbor the morning a storm arrives",
@@ -132,6 +193,7 @@ function BannerTitle() {
                 <span className="qp-top-stage__word" style={{ transitionDelay: `${delay}s` }}>
                   {word}
                 </span>
+                {BANNER_MOBILE_BREAK_AFTER.has(word) ? <br className="qp-top-stage__br" /> : null}
               </span>
             );
           })}
@@ -178,7 +240,8 @@ export function AirPage() {
       <div className="qp-page-shell">
       <SiteHeader />
       <div className="air-overview">
-        <div className="qp-top-stage">
+        <div className={`qp-top-stage${bannerIn ? " is-in" : ""}`}>
+          <BannerGlobe />
           <div className={`qp-top-stage__inner${bannerIn ? " is-in" : ""}`}>
             <BannerTitle />
             <div className="qp-composer-block">
@@ -187,7 +250,9 @@ export function AirPage() {
           </div>
         </div>
         <div className="qp-below-banner">
-          <div className="qp-banner-card" aria-hidden="true" />
+          <BannerCard />
+          <Spotlight />
+          <FeatureRail />
           <HomeHeroSection />
           <StoriesSection />
           <HomeOffer />

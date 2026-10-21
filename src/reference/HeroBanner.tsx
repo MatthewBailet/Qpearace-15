@@ -449,17 +449,22 @@ function IndustryCarousel({
   );
 }
 
+export function Spotlight() {
+  return (
+    <div className="qp-spotlight">
+      <p className="qp-spotlight__eyebrow">Qpearance 1.6</p>
+      <h2 className="qp-spotlight__text">
+        Our next era of frontier simulation, built around your world
+      </h2>
+      <div className="qp-spotlight__media" role="presentation" />
+    </div>
+  );
+}
+
 export function HeroBanner() {
   return (
     <section className="_wt-section_tbzztj_24 _section_yRyT2 qp-home-hero">
       <div className="_hero_d8I6x">
-        <div className="qp-spotlight">
-          <p className="qp-spotlight__eyebrow">Qpearance 1.6</p>
-          <h2 className="qp-spotlight__text">
-            Our next era of frontier simulation, built around your world
-          </h2>
-          <div className="qp-spotlight__media" role="presentation" />
-        </div>
         <ProductBand />
       </div>
       <div className="_hero_d8I6x">
