@@ -3,8 +3,8 @@ import footer from "./partials/footer.html?raw";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { StoriesSection } from "./StoriesSection";
 import { FeatureRail } from "./FeatureRail";
-import { BannerGlobe } from "./BannerGlobe";
 import { HeroBanner, HomeOffer, Spotlight } from "./HeroBanner";
+import { Highlights } from "./Highlights";
 import "./slots.css";
 
 function Slot({ html }: { html: string }) {
@@ -21,63 +21,6 @@ export function HomeHeroSection() {
 
 export function SiteFooter() {
   return <Slot html={footer} />;
-}
-
-function BannerCard() {
-  return (
-    <article className="qp-banner-card">
-      <div className="qp-banner-card__intro">
-        <div className="qp-banner-card__copy">
-          <h2 className="qp-banner-card__title">Qpearance 1.6 is currently in beta testing</h2>
-          <p className="qp-banner-card__desc">
-            We’re inviting a limited set of teams to run the models across cities, facilities, networks, and the work
-            that moves through them—and to help us keep them current as the world changes.
-          </p>
-        </div>
-        <a className="qp-banner-card__cta" href="#request-access">
-          Request Early Access
-        </a>
-      </div>
-      <div className="qp-banner-card__more">
-        <p className="qp-banner-card__kicker">Learn more</p>
-        <ul className="qp-banner-card__links">
-          <li>
-            <a href="#introducing">
-              Introducing Omni-purpose models
-              <BannerCardArrow />
-            </a>
-          </li>
-          <li>
-            <a href="#environments">
-              Simulation across every environment
-              <BannerCardArrow />
-            </a>
-          </li>
-          <li>
-            <a href="#model-details">
-              Model details
-              <BannerCardArrow />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </article>
-  );
-}
-
-function BannerCardArrow() {
-  return (
-    <svg className="qp-banner-card__arrow" viewBox="0 0 16 16" aria-hidden="true">
-      <path
-        d="M3 8h9.2M9.2 4.2 13 8l-3.8 3.8"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 }
 
 function NoticeBar() {
@@ -118,14 +61,11 @@ function NoticeBar() {
   );
 }
 
-const BANNER_LINES = [
-  ["Experience", "frontier", "all-purpose", "simulation."],
-  ["Built", "around", "your", "world."],
-] as const;
+const BANNER_WORDS = ["Experience", "frontier,", "all-purpose", "simulations"] as const;
 
-const BANNER_MOBILE_BREAK_AFTER = new Set(["frontier"]);
+const BANNER_MOBILE_BREAK_AFTER = new Set(["frontier,"]);
 
-const BANNER_WORD_DELAYS = [0.26, 0.14, 0.4, 0.22, 0.48, 0.18, 0.36, 0.28];
+const BANNER_WORD_DELAYS = [0.26, 0.14, 0.4, 0.22];
 
 const COMPOSER_PROMPTS = [
   "A harbor the morning a storm arrives",
@@ -169,8 +109,12 @@ function BannerComposer() {
       <button className="qp-composer__send" type="submit" disabled={!value.trim()} aria-label="Send">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
-            fill="currentColor"
-            d="M10.94 5.65a1.5 1.5 0 0 1 2.12 0l4.65 4.65a1 1 0 0 1-1.42 1.41L13 8.41V18a1 1 0 0 1-2 0V8.41L7.71 11.7a1 1 0 0 1-1.42-1.41z"
+            d="M12 18V6M7 11l5-5 5 5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </button>
@@ -179,26 +123,19 @@ function BannerComposer() {
 }
 
 function BannerTitle() {
-  let wordIndex = 0;
-
   return (
     <h1 className="qp-top-stage__title">
-      {BANNER_LINES.map((line) => (
-        <span key={line[0]} className="qp-top-stage__line">
-          {line.map((word, index) => {
-            const delay = BANNER_WORD_DELAYS[wordIndex++];
-            return (
-              <span key={word}>
-                {index > 0 ? " " : null}
-                <span className="qp-top-stage__word" style={{ transitionDelay: `${delay}s` }}>
-                  {word}
-                </span>
-                {BANNER_MOBILE_BREAK_AFTER.has(word) ? <br className="qp-top-stage__br" /> : null}
-              </span>
-            );
-          })}
-        </span>
-      ))}
+      <span className="qp-top-stage__line qp-top-stage__line--display">
+        {BANNER_WORDS.map((word, index) => (
+          <span key={word}>
+            {index > 0 ? " " : null}
+            <span className="qp-top-stage__word" style={{ transitionDelay: `${BANNER_WORD_DELAYS[index]}s` }}>
+              {word}
+            </span>
+            {BANNER_MOBILE_BREAK_AFTER.has(word) ? <br className="qp-top-stage__br" /> : null}
+          </span>
+        ))}
+      </span>
     </h1>
   );
 }
@@ -215,13 +152,13 @@ export function AirPage() {
 
   useLayoutEffect(() => {
     const header = document.getElementById("wt-site-header");
-    const stage = document.querySelector(".qp-top-stage");
-    if (!header || !stage) return;
+    if (!header || !document.querySelector(".qp-top-stage")) return;
 
     const update = () => {
-      const stageBottom = stage.getBoundingClientRect().bottom;
-      const headerBottom = header.getBoundingClientRect().bottom;
-      header.classList.toggle("is-past-banner", stageBottom <= headerBottom + 1);
+      const stage = document.querySelector(".qp-top-stage");
+      const pastBanner = !!stage && stage.getBoundingClientRect().bottom <= header.offsetHeight + 1;
+      header.classList.toggle("is-scrolled", window.scrollY > 8);
+      header.classList.toggle("is-past-banner", pastBanner);
     };
 
     update();
@@ -230,7 +167,7 @@ export function AirPage() {
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
-      header.classList.remove("is-past-banner");
+      header.classList.remove("is-scrolled", "is-past-banner");
     };
   }, []);
 
@@ -241,16 +178,18 @@ export function AirPage() {
       <SiteHeader />
       <div className="air-overview">
         <div className={`qp-top-stage${bannerIn ? " is-in" : ""}`}>
-          <BannerGlobe />
+          <div className="qp-banner-sky" aria-hidden="true" />
           <div className={`qp-top-stage__inner${bannerIn ? " is-in" : ""}`}>
-            <BannerTitle />
+            <div className="qp-top-stage__copy">
+              <BannerTitle />
+            </div>
             <div className="qp-composer-block">
               <BannerComposer />
             </div>
           </div>
         </div>
         <div className="qp-below-banner">
-          <BannerCard />
+          <Highlights />
           <Spotlight />
           <FeatureRail />
           <HomeHeroSection />

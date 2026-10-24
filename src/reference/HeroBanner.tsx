@@ -489,7 +489,7 @@ export function HeroBanner() {
 
 export function HomeOffer() {
   return (
-    <section className="_wt-section_tbzztj_24 _section_yRyT2 jb-transparent-section qp-home-offer">
+    <section id="request-access" className="_wt-section_tbzztj_24 _section_yRyT2 jb-transparent-section qp-home-offer">
       <div className="_hero_d8I6x">
         <article className="qp-hero-offer">
           <div className="qp-hero-offer__copy">

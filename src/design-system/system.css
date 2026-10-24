@@ -94,6 +94,7 @@
   --qp-space-14: 112px;
   --qp-space-16: 128px;
   --qp-page: 89.5rem;
+  --qp-gallery-card: min(max(calc(87.5vw - 15px), 280px), 1260px);
   --qp-gutter: clamp(1.75rem, 1.6734693877551021rem + 0.326530612244898vw, 2rem);
   --qp-gutter-m: 32px;
   --qp-gutter-s: 16px;

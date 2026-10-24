@@ -3,6 +3,8 @@ export { OutlineCard, FeatureCard, Note, Banner, PreviewFrame } from "./Cards";
 export { SiteHeader, AnnounceBar, SiteFooter } from "./Chrome";
 export { Section, Container, Cluster, Grid } from "./Layout";
 export { PageFrame } from "./PageFrame";
+export { MediaCardGallery } from "./MediaCardGallery";
+export type { CaptionPlacement, MediaCardItem } from "./MediaCardGallery";
 export { SegmentedControl } from "./SegmentedControl";
 export { airTokens } from "./tokens";
 export { DisplayTitle, SectionTitle, Heading, Lead, Body } from "./Type";
