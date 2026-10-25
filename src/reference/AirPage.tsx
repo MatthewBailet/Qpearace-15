@@ -1,9 +1,11 @@
 import header from "./partials/header.html?raw";
 import footer from "./partials/footer.html?raw";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { StoriesSection } from "./StoriesSection";
 import { FeatureRail } from "./FeatureRail";
 import { HeroBanner, HomeOffer, Spotlight } from "./HeroBanner";
+import { BannerPresetGallery } from "./BannerPresetGallery";
+import { ContinuitySection } from "./ContinuitySection";
 import { Highlights } from "./Highlights";
 import "./slots.css";
 
@@ -61,11 +63,7 @@ function NoticeBar() {
   );
 }
 
-const BANNER_WORDS = ["Experience", "frontier,", "all-purpose", "simulations"] as const;
-
-const BANNER_MOBILE_BREAK_AFTER = new Set(["frontier,"]);
-
-const BANNER_WORD_DELAYS = [0.26, 0.14, 0.4, 0.22];
+const BANNER_LINES = [["Start", "building", "frontier", "simulations"]] as const;
 
 const COMPOSER_PROMPTS = [
   "A harbor the morning a storm arrives",
@@ -75,9 +73,31 @@ const COMPOSER_PROMPTS = [
   "A neighborhood after heavy rain",
 ];
 
+const COMPOSER_SCALES = [
+  { id: "global", label: "Global" },
+  { id: "regional", label: "Regional" },
+  { id: "national", label: "National" },
+  { id: "virtual", label: "Virtual" },
+  { id: "city-local", label: "City & Local" },
+  { id: "population", label: "Population" },
+  { id: "organization", label: "Organization" },
+  { id: "market", label: "Market" },
+  { id: "custom", label: "Custom" },
+] as const;
+
 function BannerComposer() {
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const scaleRef = useRef<HTMLDivElement>(null);
+  const scaleListId = useId();
   const [value, setValue] = useState("");
   const [index, setIndex] = useState(0);
+  const [scale, setScale] = useState<(typeof COMPOSER_SCALES)[number]["id"]>("global");
+  const [scaleOpen, setScaleOpen] = useState(false);
+  const selectedScale = COMPOSER_SCALES.find((item) => item.id === scale) ?? COMPOSER_SCALES[0];
+
+  useLayoutEffect(() => {
+    inputRef.current?.focus({ preventScroll: true });
+  }, []);
 
   useEffect(() => {
     if (value.trim()) return;
@@ -87,6 +107,22 @@ function BannerComposer() {
     }, 3400);
     return () => window.clearInterval(id);
   }, [value]);
+
+  useEffect(() => {
+    if (!scaleOpen) return;
+    const onPointer = (event: PointerEvent) => {
+      if (!scaleRef.current?.contains(event.target as Node)) setScaleOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setScaleOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [scaleOpen]);
 
   return (
     <form className={`qp-composer${value.trim() ? " is-filled" : ""}`} onSubmit={(event) => event.preventDefault()}>
@@ -100,12 +136,67 @@ function BannerComposer() {
         </div>
       </div>
       <textarea
+        ref={inputRef}
         className="qp-composer__input"
         aria-label="Describe where to start"
         rows={3}
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
+      <div className="qp-composer__scale" ref={scaleRef} data-open={scaleOpen ? "true" : "false"}>
+        <button
+          className="qp-composer__scale-btn"
+          type="button"
+          aria-haspopup="listbox"
+          aria-expanded={scaleOpen}
+          aria-controls={scaleListId}
+          aria-label={`Simulation scale: ${selectedScale.label}`}
+          onClick={() => setScaleOpen((current) => !current)}
+        >
+          <svg className="qp-composer__scale-globe" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" strokeWidth="1.7" />
+            <ellipse cx="12" cy="12" rx="3.2" ry="8.25" fill="none" stroke="currentColor" strokeWidth="1.7" />
+            <path d="M3.9 9.5h16.2M3.9 14.5h16.2" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+          </svg>
+          <span>{selectedScale.label}</span>
+          <svg className="qp-composer__scale-chevron" viewBox="0 0 16 16" aria-hidden="true">
+            <path
+              d="M4.2 6.2 8 10l3.8-3.8"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <ul
+          className="qp-composer__scale-menu"
+          id={scaleListId}
+          role="listbox"
+          aria-label="Simulation scale"
+          aria-hidden={!scaleOpen}
+          inert={!scaleOpen}
+        >
+          {COMPOSER_SCALES.map((item) => (
+            <li key={item.id} role="presentation">
+              <button
+                className="qp-composer__scale-option"
+                type="button"
+                role="option"
+                tabIndex={scaleOpen ? 0 : -1}
+                aria-selected={scale === item.id}
+                onClick={() => {
+                  setScale(item.id);
+                  setScaleOpen(false);
+                }}
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
       <button className="qp-composer__send" type="submit" disabled={!value.trim()} aria-label="Send">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
@@ -125,31 +216,21 @@ function BannerComposer() {
 function BannerTitle() {
   return (
     <h1 className="qp-top-stage__title">
-      <span className="qp-top-stage__line qp-top-stage__line--display">
-        {BANNER_WORDS.map((word, index) => (
-          <span key={word}>
-            {index > 0 ? " " : null}
-            <span className="qp-top-stage__word" style={{ transitionDelay: `${BANNER_WORD_DELAYS[index]}s` }}>
-              {word}
+      {BANNER_LINES.map((line) => (
+        <span key={line[0]} className="qp-top-stage__line qp-top-stage__line--display">
+          {line.map((word, index) => (
+            <span key={word}>
+              {index > 0 ? " " : null}
+              <span className="qp-top-stage__word">{word}</span>
             </span>
-            {BANNER_MOBILE_BREAK_AFTER.has(word) ? <br className="qp-top-stage__br" /> : null}
-          </span>
-        ))}
-      </span>
+          ))}
+        </span>
+      ))}
     </h1>
   );
 }
 
 export function AirPage() {
-  const [bannerIn, setBannerIn] = useState(false);
-
-  useEffect(() => {
-    const first = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setBannerIn(true));
-    });
-    return () => cancelAnimationFrame(first);
-  }, []);
-
   useLayoutEffect(() => {
     const header = document.getElementById("wt-site-header");
     if (!header || !document.querySelector(".qp-top-stage")) return;
@@ -177,18 +258,22 @@ export function AirPage() {
       <div className="qp-page-shell">
       <SiteHeader />
       <div className="air-overview">
-        <div className={`qp-top-stage${bannerIn ? " is-in" : ""}`}>
+        <div className="qp-top-stage">
           <div className="qp-banner-sky" aria-hidden="true" />
-          <div className={`qp-top-stage__inner${bannerIn ? " is-in" : ""}`}>
-            <div className="qp-top-stage__copy">
-              <BannerTitle />
+          <div className="qp-top-stage__inner">
+            <div className="qp-top-stage__hero-cluster">
+              <div className="qp-top-stage__copy">
+                <BannerTitle />
+              </div>
+              <div className="qp-composer-block">
+                <BannerComposer />
+              </div>
             </div>
-            <div className="qp-composer-block">
-              <BannerComposer />
-            </div>
+            <BannerPresetGallery />
           </div>
         </div>
         <div className="qp-below-banner">
+          <ContinuitySection />
           <Highlights />
           <Spotlight />
           <FeatureRail />

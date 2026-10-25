@@ -1,4 +1,4 @@
-.qp-highlight-scene {
+﻿.qp-highlight-scene {
   --qp-scene-paper: var(--qp-surface, #f5f4f0);
   position: absolute;
   inset: 0;
