@@ -136,11 +136,10 @@ export function ContinuitySection() {
   const overflowing = paddleLeft || paddleRight;
 
   return (
-    <section className="qp-continuity" aria-label="Connected">
+    <section className="qp-continuity" aria-label="Scenario planning">
       <div className="qp-continuity__content">
         <header className="qp-continuity__header">
-          <p className="qp-continuity__eyebrow">Connected</p>
-          <h2 className="qp-continuity__headline">The run stays whole.</h2>
+          <h2 className="qp-continuity__headline">Plan the branch before you take it.</h2>
         </header>
         <div className="qp-continuity__gallery">
           <div className="qp-continuity__stage">

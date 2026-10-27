@@ -76,11 +76,11 @@
   --rs-h4-letter-spacing: -0.008em;
   --rs-h5-letter-spacing: -0.006em;
   --rs-text-base-letter-spacing: -0.005em;
-  --wt-site-header-height: 44px;
-  --wt-mobile-site-header-height: 44px;
-  --qp-header-logo-height: 18px;
-  --qp-header-control: 28px;
-  --qp-header-type: 13px;
+  --wt-site-header-height: 52px;
+  --wt-mobile-site-header-height: 52px;
+  --qp-header-logo-height: 20px;
+  --qp-header-control: 32px;
+  --qp-header-type: 14px;
   --qp-font-weight-medium: 500;
   --qp-bg: var(--qp-banner-surface);
   --qp-banner-surface: #fbfbfc;
@@ -437,8 +437,9 @@ html[lang="en"] .air-font-jb-modul {
 @media screen and (width > 1000px) {
   #wt-site-header ._row_56qbgi_23 {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
+    column-gap: 16px;
     width: 100%;
   }
 
@@ -454,9 +455,10 @@ html[lang="en"] .air-font-jb-modul {
 
   #wt-site-header ._menu_ivbti9_1 {
     grid-column: 2;
+    justify-self: start;
     flex-grow: 0;
     flex-shrink: 0;
-    justify-content: center;
+    justify-content: flex-start;
     max-width: none;
   }
 
@@ -494,7 +496,7 @@ html[lang="en"] .air-font-jb-modul {
 
 #wt-site-header [data-test="main-menu"] {
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 
 #wt-site-header ._action_1lmh5vu_8,
@@ -502,13 +504,35 @@ html[lang="en"] .air-font-jb-modul {
   display: inline-flex;
   align-items: center;
   height: var(--qp-header-control);
-  padding: 0 8px;
+  padding: 0 12px;
   font-size: var(--qp-header-type);
   font-weight: var(--qp-font-weight-medium);
-  line-height: 16px;
-  letter-spacing: -0.012em;
+  line-height: 20px;
+  letter-spacing: -0.011em;
   color: rgb(25 25 28 / 88%);
   opacity: 1;
+}
+
+@media screen and (width <= 1180px) {
+  #wt-site-header [data-test="main-menu"] {
+    gap: 2px;
+  }
+
+  #wt-site-header ._action_1lmh5vu_8,
+  #wt-site-header ._action_16sza0f_3 {
+    padding: 0 8px;
+  }
+}
+
+@media screen and (width <= 1068px) {
+  #wt-site-header [data-test="main-menu"] {
+    gap: 0;
+  }
+
+  #wt-site-header ._action_1lmh5vu_8,
+  #wt-site-header ._action_16sza0f_3 {
+    padding: 0 6px;
+  }
 }
 
 #wt-site-header ._action_1lmh5vu_8:hover,
@@ -525,13 +549,13 @@ html[lang="en"] .air-font-jb-modul {
 }
 
 #wt-site-header button._action_1lmh5vu_8[data-test="main-menu-item-action"] {
-  column-gap: 3px;
+  column-gap: 4px;
 }
 
 #wt-site-header button._action_1lmh5vu_8 .qp-nav-chevron {
   flex-shrink: 0;
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   opacity: 0.72;
   transition: transform 0.3s;
 }
@@ -555,13 +579,13 @@ html[lang="en"] .air-font-jb-modul {
   margin-left: 0;
   height: var(--qp-header-control);
   min-height: 0;
-  padding: 0 12px;
+  padding: 0 14px;
   overflow: visible;
   border-radius: var(--qp-radius-button);
   corner-shape: round;
   --_rs-button-border-radius-base: var(--qp-radius-button);
   --_rs-button-vertical-padding: 0px;
-  --_rs-button-horizontal-padding: 12px;
+  --_rs-button-horizontal-padding: 14px;
   --_rs-button-background: var(--qp-text);
   --_rs-button-hover-background: #2c2c30;
   --_rs-button-color: var(--qp-button-label);
@@ -569,11 +593,11 @@ html[lang="en"] .air-font-jb-modul {
   color: var(--qp-button-label);
   --_rs-typography-font-size: var(--qp-header-type);
   --_rs-typography-font-weight: var(--qp-font-weight-medium);
-  --_rs-typography-letter-spacing: -0.012em;
+  --_rs-typography-letter-spacing: -0.011em;
   --_rs-typography-line-height: 1;
   font-size: var(--qp-header-type);
   font-weight: var(--qp-font-weight-medium);
-  letter-spacing: -0.012em;
+  letter-spacing: -0.011em;
   line-height: 1;
 }
 
@@ -589,13 +613,13 @@ html[lang="en"] .air-font-jb-modul {
   color: var(--qp-button-label);
   font-size: var(--qp-header-type);
   font-weight: var(--qp-font-weight-medium);
-  letter-spacing: -0.012em;
+  letter-spacing: -0.011em;
   line-height: 1;
 }
 
 #wt-site-header .qp-signin-btn .qp-btn-chevron {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
 }
 
 #wt-site-header .qp-signin-btn:hover .qp-btn-chevron,
@@ -642,13 +666,13 @@ html[lang="en"] .air-font-jb-modul {
 #wt-site-header [data-test="language-picker"] svg,
 #wt-site-header [data-test="site-header-open-mobile-menu"] svg,
 #wt-site-header [data-test="site-header-close-mobile-menu"] svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
 #wt-site-header ._actions_129vrzq_17 {
   align-items: center;
-  column-gap: 4px;
+  column-gap: 8px;
   height: var(--qp-header-control);
 }
 

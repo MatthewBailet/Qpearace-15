@@ -24,22 +24,13 @@
   text-align: center;
 }
 
-.qp-continuity__eyebrow {
+.qp-continuity__headline {
   margin: 0;
   color: var(--qp-text);
-  font-size: 21px;
+  font-size: clamp(20px, 1.25vw + 16px, 36px);
   font-weight: 600;
-  letter-spacing: 0.011em;
-  line-height: 1.19;
-}
-
-.qp-continuity__headline {
-  margin: 8px 0 0;
-  color: var(--qp-text);
-  font-size: 56px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  line-height: 1.07;
+  letter-spacing: -0.011em;
+  line-height: 1.125;
 }
 
 .qp-continuity__intro {
@@ -385,13 +376,6 @@
     width: min(980px, calc(100% - 40px));
   }
 
-  .qp-continuity__headline {
-    font-size: 40px;
-    letter-spacing: 0;
-    line-height: 1.1;
-  }
-
-  .qp-continuity__eyebrow,
   .qp-continuity__intro,
   .qp-continuity__link {
     font-size: 19px;
@@ -415,13 +399,6 @@
     width: calc(100% - 32px);
   }
 
-  .qp-continuity__headline {
-    font-size: 32px;
-    letter-spacing: 0.004em;
-    line-height: 1.125;
-  }
-
-  .qp-continuity__eyebrow,
   .qp-continuity__intro,
   .qp-continuity__link {
     font-size: 17px;
